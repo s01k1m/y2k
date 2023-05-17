@@ -40,7 +40,13 @@ INSTALLED_APPS = [
     'rest_framework',
     # Auth
     'rest_framework.authtoken',
+    # 'rest_framework_simplejwt',
+    'django.contrib.sites',
     'dj_rest_auth',
+    'dj_rest_auth.registration',
+    'allauth',
+    'allauth.account',
+	'allauth.socialaccount', 
 
     # [3] django basic apps
     'django.contrib.admin',
@@ -51,15 +57,55 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# AUTH
+# 이메일 인증 필요 X
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+AUTH_USER_MODEL = 'user.User'
+
+REST_USE_JWT = True
+ACCOUNT_EMAIL_REQUIRED = False            # email 필드 사용 o
+ACCOUNT_USERNAME_REQUIRED = True        # username 필드 사용 x
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+ACCOUNT_EMAIL_VERIFICATION = 'none' # 회원가입 과정에서 이메일 인증 사용 X
+
+REST_FRAMEWORK = {
+    # Authentication
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+
+    # permission
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
+    ],
+}
+
+SITE_ID = 1
+
+# 
+REST_AUTH = {
+	'SESSION_LOGIN': False,
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    # CORS
+    "corsheaders.middleware.CorsMiddleware",
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# 
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'my_api.urls'
 
