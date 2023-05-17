@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'allauth',
     'allauth.account',
-	'allauth.socialaccount', 
+	'allauth.socialaccount',
+    'corsheaders',
 
     # [3] django basic apps
     'django.contrib.admin',
@@ -61,14 +62,7 @@ INSTALLED_APPS = [
 # 이메일 인증 필요 X
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-AUTH_USER_MODEL = 'user.User'
-
-REST_USE_JWT = True
-ACCOUNT_EMAIL_REQUIRED = False            # email 필드 사용 o
-ACCOUNT_USERNAME_REQUIRED = True        # username 필드 사용 x
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-
-ACCOUNT_EMAIL_VERIFICATION = 'none' # 회원가입 과정에서 이메일 인증 사용 X
+AUTH_USER_MODEL = 'accounts.User'
 
 REST_FRAMEWORK = {
     # Authentication
