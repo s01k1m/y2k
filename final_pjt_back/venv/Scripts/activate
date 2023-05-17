@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\SSAFY\Documents\final-pjt\final_pjt_back\venv"
+VIRTUAL_ENV="C:\Users\SSAFY\Desktop\KYJ\Final_PJT\y2k\final_pjt_back\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
