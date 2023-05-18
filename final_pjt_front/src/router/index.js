@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/HomeView.vue'
 import Search from '../views/SearchView.vue'
 import Create from '../views/CreateView.vue'
-import Login from '../views/LoginView.vue'
+import LogIn from '../views/LogInView.vue'
 import SignUp from '../views/SignUpView.vue'
 import User from '../views/UserView.vue'
 import Collection from '../views/CollectionView.vue'
@@ -35,7 +35,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: Login
+    component: LogIn
   },
   {
     path: '/signup',

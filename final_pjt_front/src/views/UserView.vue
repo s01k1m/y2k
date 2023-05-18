@@ -1,12 +1,21 @@
 <template>
   <div class="user">
-    <h1>UserView</h1>
+    <h1>MyPage</h1>
+    <UserProfile></UserProfile>
+    <UserCollection></UserCollection>
   </div>
 </template>
 
 <script>
+import UserProfile from '@/components/UserProfile.vue'
+import UserCollection from '@/components/UserCollection.vue'
+
 export default {
-  name: 'UserView'
+  name: 'UserView',
+  components: {
+    UserProfile,
+    UserCollection
+  }
 }
 </script>
 
