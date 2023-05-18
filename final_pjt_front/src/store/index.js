@@ -30,9 +30,16 @@ export default new Vuex.Store({
       state.isLogin = false;
       state.isLoginError = false;
       state.userInfo = null;
+      },
+      /////////// signup & login -> 완료하면 토큰 발급 ////////
+      SAVE_TOKEN(state, token) {
+      state.token = token
+      router.push({name : 'ArticleView'}) // store/index.js $router 접근 불가 -> import를 해야함
       }
     },
-    actions: {
+
+    
+    actions : {
     
     /////////로그인/////////
     login(dispatch, loginObj) {
@@ -77,7 +84,7 @@ export default new Vuex.Store({
     alert("이메일과 비밀번호를 확인하세요.");
     });
     },
-
+    
     /////////사용자 정보 가져오기/////////
     getMemberInfo({ commit }) {
     //로컬 스토리지에 저장된 토큰을 저장한다.

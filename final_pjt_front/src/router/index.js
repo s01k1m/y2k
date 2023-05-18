@@ -7,6 +7,7 @@ import Create from '../views/CreateView.vue'
 import Login from '../views/LoginView.vue'
 import SignUp from '../views/SignUpView.vue'
 import User from '../views/UserView.vue'
+import Collection from '../views/CollectionView.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/home',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/stills',
+    name: 'collection',
+    component: Collection
   },
   {
     path: '/search',
