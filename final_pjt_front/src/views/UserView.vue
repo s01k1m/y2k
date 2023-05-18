@@ -3,6 +3,7 @@
     <h1>MyPage</h1>
     <UserProfile></UserProfile>
     <UserCollection></UserCollection>
+    <button @click="logout">logout</button>
   </div>
 </template>
 
@@ -15,6 +16,11 @@ export default {
   components: {
     UserProfile,
     UserCollection
+  },
+  methods: {
+    logout() {
+      return this.$store.dispatch('logout')
+    }
   }
 }
 </script>

@@ -37,28 +37,6 @@ export default {
 
       console.log(loginObj)
       return this.$store.dispatch('login', loginObj)
-      // axios
-      //   .post(`${API_URL}/accounts/login/`, loginObj)
-
-      //   .then((res) => {
-      //     console.log(res.data) //
-      //     const token = res.data.key
-      //     // localStorage.setItem('access_token', token) // 토큰을 저장함
-
-      //     // const refretoken = res.data.refresh_token
-      //     // localStorage.setItem('refresh_token', refretoken) // 토큰을 저장함
-      //     const config = {
-      //       headers: {
-      //         Authorization: 'Token ' + token
-      //       }
-      //     }
-      //     axios
-      //       .get(`${API_URL}/accounts/user/`, config) // 유저 요청
-      //       .then((response) => {
-      //           console.log(response)
-      //         } // 유저 정보를 받아옴
-      //       )
-      //   })
     }
   }
 }
