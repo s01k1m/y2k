@@ -6,7 +6,8 @@
       <input type="text" id="username" v-model="username"><br>
       <label for="password"> password : </label>
       <input type="password" id="password" v-model="password"><br>
-      <button type="submit" v-on:click="loginSubmit">Log in</button>
+      <button type="submit" v-on:click="loginSubmit">Log in</button><br>
+      <router-link :to="{ name: 'signup' }">아직 가입하지 않으셨나요?</router-link>
       <!-- <button type="submit" v-on:click="Signin">Sign in</button> -->
     </form>
   </div>  
@@ -24,7 +25,7 @@ export default {
       username : null,
       password : null,
     }
-
+  
   },
   methods: {
     loginSubmit(e) {
