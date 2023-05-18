@@ -1,17 +1,16 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/home"><img src="./assets/logo.svg" class="logo"></router-link>
-      <router-link to="/stills">STILL's'</router-link>
-      <form id="searchBar" class="form-group">
-        <span class="form-group">
-          <input type="text" class="" style="width: 250px; display: inline;" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-        </span>
-      </form>
-      <router-link to="/create">CREATE</router-link>
-      <router-link to="/login" v-if="!isLogined">LOG-IN</router-link>
-      <router-link to="/user" v-if="isLogined">MyPage</router-link>
+      <div class="nav-left">
+        <router-link to="/home"><img src="./assets/logo.svg" class="logo"></router-link>
+        <router-link to="/stills">STILL's'</router-link>
+      </div>
+      <input type="text" id="searchBar" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+      <div class="nav-right">
+        <router-link to="/create">CREATE</router-link>
+        <router-link to="/login" v-if="!isLogined">LOG-IN</router-link>
+        <router-link to="/user" v-if="isLogined">MyPage</router-link>
+      </div>
     </nav>
     <router-view/>
   </div>
@@ -38,39 +37,57 @@ export default {
 </script>
 
 <style>
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  min-width: 560px;
 }
 
-#searchBar {
-  width:300px;
-  display: inline;
-  display: red;
-}
 
 .logo {
   height: 20px;
 }
 
-.form-contro {
-
-}
 
 nav {
   padding: 0px;
+  display: flex;
+  align-items: center;
 }
 
+#searchBar {
+  background-color: purple;
+  flex: 3;
+
+}
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #a4caf1;
   margin-left : 10px;
+
 }
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+
+nav .nav-left {
+  flex: 2;
+  background-color: green;
+  display: flex;
+  justify-content: space-evenly;  
+  align-items: center;
+}
+
+nav .nav-right {
+  flex: 2;
+  background-color: green;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 </style>
