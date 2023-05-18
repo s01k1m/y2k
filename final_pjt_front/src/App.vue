@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/home"><img src="./assets/apple-logo.svg" class="logo"></router-link>
+      <router-link to="/home"><img src="./assets/logo.svg" class="logo"></router-link>
       <router-link to="/stills">STILL's'</router-link>
       <form id="searchBar" class="form-group">
         <span class="form-group">
