@@ -98,7 +98,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# 
+# 모든 요청 허용
 CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'my_api.urls'
