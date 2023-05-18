@@ -48,9 +48,7 @@ export default {
 
 <style scoped>
 
-.login {
-  
-}
+
 
 .logo {
   height: 100px;
