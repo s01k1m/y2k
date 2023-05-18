@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/LoginView.vue'
 import Home from '../views/HomeView.vue'
-import Still from '../views/StillsView.vue'
+import Search from '../views/SearchView.vue'
 import Create from '../views/CreateView.vue'
-import Signup from '../views/SignUpView.vue'
+import Login from '../views/LoginView.vue'
+import SignUp from '../views/SignUpView.vue'
+import User from '../views/UserView.vue'
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,11 @@ const routes = [
     path: '/home',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: Search
   },
   {
     path: '/create',
@@ -28,6 +34,11 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignUp
+  },
+  {
+    path: '/user',
+    name: 'user',
+    component: User
   }
 ]
 
