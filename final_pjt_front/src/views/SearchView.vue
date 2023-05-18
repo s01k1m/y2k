@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     searchInput() {
-      return this.$route.params.searchInput
+      return this.$route.query.searchInput
     }
   }
 }

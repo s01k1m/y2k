@@ -3,7 +3,7 @@
     <nav>
       <div class="nav-left">
         <router-link to="/home"><img src="./assets/logo.svg" class="logo"></router-link>
-        <router-link to="/stills" class="go" >STILL's'</router-link>
+        <router-link to="/stills" class="go" >STILLs</router-link>
       </div>
       <input type="text" id="searchBar" placeholder="Search" aria-label="Search" aria-describedby="button-addon2"
         v-model="searchInput"
@@ -29,13 +29,18 @@ export default {
   },
   computed: {
     isLogined() {
-
       return this.$store.state.isLogin
     },
   },
   methods: {
-    search() {
-      this.$router.push({name: 'search', params: { searchInput: this.searchInput}})
+    search(e) {
+      console.log(e.target.value)
+      this.$router.push({name: 'search', query: { searchInput: this.searchInput}})
+      .then(() => {e.target.value = ''})
+      .catch((err)=>{
+        console.log(err)
+        e.target.value = ''
+      })
     }
   },
   created() { // 로그인이 되어있는지 항상 access_token을 체크하는 로직입니다.
@@ -87,6 +92,7 @@ nav {
 
 nav a {
   font-size: 16px;
+  text-decoration: none;
   font-weight: bold;
   color: #000000;
   margin-left : 10px;
