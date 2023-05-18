@@ -1,6 +1,7 @@
 <template>
   <div class="login">
-    <h1>STILL에 오신 것을 환영합니다</h1>
+    <img src="../assets/logo.svg" alt="logo" class="logo">
+    <h1 class="header">STILLER에 오신 것을 환영합니다!</h1>
     <div class="loginform">
 
       <label for="username">유저이름</label><br>
@@ -51,31 +52,36 @@ export default {
   
 }
 
+.logo {
+  height: 100px;
+}
+
 h1 {
-    color: rgb(51, 51, 51);
-    font-size: 32px;
-    font-weight: 600;
-    letter-spacing: -1.2px;
-    padding-left: 16px;
-    padding-right: 16px;
-    -webkit-font-smoothing: antialiased;
-    word-break: keep-all;
+  margin: 50px;
+  color: rgb(51, 51, 51);
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -1.2px;
+  padding-left: 16px;
+  padding-right: 16px;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
 }
 
 .loginform label {
-  left: 0;
+
   font-size: 14px;
   color: #111111;
 }
 
  .loginform{
-  width: 268px;
+  width: 300px;
   margin: 0 auto;
   text-align: left;
 }
 
 .router {
-  width: 268px;
+  width: 300px;
   margin: 0 auto;
   text-align: center;
   border: none;
@@ -100,6 +106,7 @@ h1 {
   border-style: solid;
   border-width: 2px;
   padding: 8px 16px;
+  margin-bottom: 2px;
 }
 
 .loginform > button {
