@@ -10,11 +10,24 @@
         </span>
       </form>
       <router-link to="/create">CREATE</router-link>
-      <router-link to="/login">LOG-IN</router-link>
+      <router-link to="/login" v-if="!isLogined">LOG-IN</router-link>
+      <router-link to="/user" v-if="isLogined">MyPage</router-link>
     </nav>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'app',
+  data() {
+    return {
+      isLogined: false,
+
+    }
+  }
+}
+</script>
 
 <style>
 #app {
