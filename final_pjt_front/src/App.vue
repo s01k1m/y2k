@@ -21,9 +21,10 @@
 export default {
   name: 'app',
   data() {
-    return {
-      isLogined: false,
-
+  },
+  computed: {
+    isLogined() {
+      return this.$store.state.isLogin
     }
   }
 }
