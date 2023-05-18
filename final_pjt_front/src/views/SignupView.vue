@@ -1,19 +1,20 @@
 <template>
   <div class="signup">
-    <h1>회원가입</h1>
-    <form>
-      <label for="username">username : </label>
-      <input type="text" id="username" v-model="username"><br>
-      <label for="email">email : </label>
-      <input type="text" id="email" v-model="email"><br>
-      <label for="password"> password1 : </label>
-      <input type="password" id="password1" v-model="password1"><br>
-      <label for="password"> password2 : </label>
-      <input type="password" id="password2" v-model="password2"><br>
-      <button type="submit" v-on:click="signup">Log in</button><br>
+    <img src="../assets/logo.svg" alt="logo" class="logo">
+    <h1 class="header">STILLER에 오신 것을 환영합니다!</h1>
+    <div class="signupform">
+      <label for="username">별명</label>
+      <input type="text" id="username" v-model="username">
+      <label for="email">이메일</label>
+      <input type="text" id="email" v-model="email">
+      <label for="password"> 비밀번호</label>
+      <input type="password" id="password1" v-model="password1">
+      <label for="password"> 비밀번호 확인</label>
+      <input type="password" id="password2" v-model="password2">
+      <button type="submit" v-on:click="signup">계속하기</button>
 
       <!-- <button type="submit" v-on:click="Signin">Sign in</button> -->
-    </form>
+    </div>
   </div>  
 </template>
 <script>
@@ -46,3 +47,54 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.logo {
+  height: 100px;
+}
+
+.header {
+  font-size: 32px; 
+  font-weight: 600; 
+  letter-spacing: -1.2px; 
+  padding-left: 16px; 
+  padding-right: 16px;
+  margin: 50px;
+}
+
+.signupform {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  text-decoration: #cdcdcd;
+  justify-content: flex-start;
+  width: 300px;
+  margin: auto;
+}
+
+input {
+  border: solid 2px #cdcdcd;
+  border-radius: 16px;
+  height: 48px;
+  padding: 8px 16px;
+  margin-bottom: 2px;
+}
+
+button {
+  border: 0px;
+  height: 40px;
+  display: inline-block;
+  border-radius: 20px;
+  -webkit-font-smoothing: antialiased;
+  padding: 0px 18px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 8px;
+  vertical-align: middle;
+  text-align: center;
+  background-color: black;
+  color: rgb(255, 255, 255);
+  width: 100%;
+}
+</style>
