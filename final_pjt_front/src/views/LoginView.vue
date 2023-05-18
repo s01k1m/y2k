@@ -37,15 +37,24 @@ export default {
       console.log(saveData)
       axios
         .post(`${API_URL}/accounts/login/`, saveData)
+
         .then((res) => {
           console.log(res.data)
           const token = res.data.access_token
-          localStorage.setItem('access_toke', token) // 토큰을 저장함
-          const refretoken = res.data.refesh_token
+          localStorage.setItem('access_token', token) // 토큰을 저장함
+          const refretoken = res.data.refresh_token
           localStorage.setItem('refresh_token', refretoken) // 토큰을 저장함
-        })
-        .catch((err) =>{
-          console.log(err)
+          const config = {
+            headers: {
+              Authorization: 'Bearer ' + token
+            }
+          }
+          axios
+            .get('http://localhost:8080/', config) // 유저 요청
+            .then((response) => {
+                console.log(response)
+              } // 유저 정보를 받아옴
+            )
         })
     }
   }

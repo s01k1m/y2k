@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Login from '../views/LoginView.vue'
 import Stills from '../views/StillsView.vue'
 import Create from '../views/CreateView.vue'
-import Signup from '../views/SignupView.vue'
+import Signup from '../views/SignUpView.vue'
 
 Vue.use(VueRouter)
 
