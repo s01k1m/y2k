@@ -32,3 +32,10 @@ export default {
   }
 }
 </script>
+
+<style>
+#create {
+  margin: 24px;
+}
+
+</style>
