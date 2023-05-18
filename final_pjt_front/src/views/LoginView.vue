@@ -25,32 +25,34 @@ export default {
       username : null,
       password : null,
     }
-  
   },
   methods: {
     loginSubmit(e) {
-      e.preventDefault()
-      console.log(this.username, this.password)
+      e.preventDefault() // 폼 새로고침 방지
+
       const saveData = {}
       saveData.username = this.username
       saveData.password = this.password
+
       console.log(saveData)
+
       axios
         .post(`${API_URL}/accounts/login/`, saveData)
 
         .then((res) => {
-          console.log(res.data)
-          const token = res.data.access_token
-          localStorage.setItem('access_token', token) // 토큰을 저장함
-          const refretoken = res.data.refresh_token
-          localStorage.setItem('refresh_token', refretoken) // 토큰을 저장함
+          console.log(res.data) //
+          const token = res.data.key
+          // localStorage.setItem('access_token', token) // 토큰을 저장함
+
+          // const refretoken = res.data.refresh_token
+          // localStorage.setItem('refresh_token', refretoken) // 토큰을 저장함
           const config = {
             headers: {
-              Authorization: 'Bearer ' + token
+              Authorization: 'Token ' + token
             }
           }
           axios
-            .get('http://localhost:8080/', config) // 유저 요청
+            .get(`${API_URL}/accounts/user/`, config) // 유저 요청
             .then((response) => {
                 console.log(response)
               } // 유저 정보를 받아옴
