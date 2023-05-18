@@ -20,11 +20,18 @@
 <script>
 export default {
   name: 'app',
-  data() {
-  },
   computed: {
     isLogined() {
+
       return this.$store.state.isLogin
+    },
+  },
+  created() { // 로그인이 되어있는지 항상 access_token을 체크하는 로직입니다.
+    let cat = localStorage.getItem('access_token')
+    console.log('created: ',cat)
+
+    if (cat) { //access_token이 있으면 로그인을 유지하도록
+      return this.$store.dispatch('getMemberInfo') // 유저정보 가져오는 로직
     }
   }
 }
