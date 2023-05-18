@@ -3,12 +3,10 @@
     <nav>
       <router-link to="/home"><img src="./assets/logo.svg" class="logo"></router-link>
       <router-link to="/stills">STILL's'</router-link>
-      <form id="searchBar" class="form-group">
-        <span class="form-group">
-          <input type="text" class="" style="width: 250px; display: inline;" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-        </span>
-      </form>
+      <input type="text" id="searchBar" placeholder="Search" aria-label="Search" aria-describedby="button-addon2"
+        v-model="searchInput"
+        @keyup.enter="search"
+      >
       <router-link to="/create">CREATE</router-link>
       <router-link to="/login" v-if="!isLogined">LOG-IN</router-link>
       <router-link to="/user" v-if="isLogined">MyPage</router-link>
@@ -20,11 +18,21 @@
 <script>
 export default {
   name: 'app',
+  data() {
+    return {
+      searchInput: null,
+    }
+  },
   computed: {
     isLogined() {
 
       return this.$store.state.isLogin
     },
+  },
+  methods: {
+    search() {
+      this.$router.push({name: 'search', params: { searchInput: this.searchInput}})
+    }
   },
   created() { // 로그인이 되어있는지 항상 access_token을 체크하는 로직입니다.
     let cat = localStorage.getItem('access_token')
@@ -47,17 +55,18 @@ export default {
 }
 
 #searchBar {
-  width:300px;
+  height: 48px;
+  min-width: 407px;
+  border: none;
+  border-radius: 24px;
+  padding: 1px 2px;
+  background-color: #e9e9e9;
   display: inline;
-  display: red;
+  padding: 20px 20px;
 }
 
 .logo {
   height: 20px;
-}
-
-.form-contro {
-
 }
 
 nav {

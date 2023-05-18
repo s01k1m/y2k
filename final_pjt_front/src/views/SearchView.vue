@@ -1,6 +1,7 @@
 <template>
   <div class="search">
     <h1>SearchView</h1>
+    <p>{{ searchInput }}</p>
     <SearchResult></SearchResult>
   </div>
 </template>
@@ -12,6 +13,11 @@ export default {
   name: 'SearchView',
   components: {
     SearchResult
+  },
+  computed: {
+    searchInput() {
+      return this.$route.params.searchInput
+    }
   }
 }
 </script>
