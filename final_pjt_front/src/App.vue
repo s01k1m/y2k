@@ -2,7 +2,7 @@
   <div id="app">
     <nav>
       <router-link to="/home"><img src="./assets/apple-logo.svg" class="logo"></router-link>
-      <router-link to="/home">STILLs</router-link>
+      <router-link to="/home">STILL</router-link>
       <router-link to="/create">CREATE</router-link>
       <router-link to="/login">LOG-IN</router-link>
     </nav>

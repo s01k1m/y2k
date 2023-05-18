@@ -1,5 +1,5 @@
 <template>
-  <div class="Signup">
+  <div class="signup">
     <h1>회원가입</h1>
     <form>
       <label for="username">username : </label>
@@ -14,7 +14,7 @@
 </template>
 <script>
 export default {
-  name: 'SignupView',
+  name: 'SignUpView',
   components: {
 
   },

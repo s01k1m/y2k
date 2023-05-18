@@ -1,5 +1,5 @@
 <template>
-  <div class="Signup">
+  <div class="login">
     <h1>로그인</h1>
     <form>
       <label for="username">username : </label>
