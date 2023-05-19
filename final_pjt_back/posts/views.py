@@ -8,18 +8,24 @@ from rest_framework.response import Response
 from rest_framework import status
 
 class APITest(APIView):
-        # id, still_image, still_color, movie_id, user, like_users
+        # id, still_image, still_color, movie_id, user, ## like_users
 
     def post(self, request) :
+        print(request.user)
         data = request.data
         print('#' * 30)
         print('request data: ', data)
         #serializer 직렬화
-        serializer = DecodeSerializer(data=data, context={'user': data.get("user"),'still_image':data.get("images")})
-
+        ###################################
+        # 컬러를 뽑는 함수 또는 로직을 추가해야합니다.
+        color = 'RED'
+        
+        serializer = DecodeSerializer(data=data, context={'user': 1, 'still_image':data.get("images"), 'still_color': color, 'movie_id': 10})
+        print('serializer 성공')
         # 데이터 유효성 검사
         if serializer.is_valid():
             # DB에 저장
+            print('serializer.is valid 성공')
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 

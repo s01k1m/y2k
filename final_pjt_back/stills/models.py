@@ -6,6 +6,7 @@ class Movie(models.Model):
     # id                   = models.AutoField(primary_key=True)         # pk 역할
     # title                = models.IntegerField()                         # 해당 영화 TMDB id
     # movie_title         = models.CharField(max_length=20)               # 영화 이름
+    # 개요
     # release_date = models.DateField()                            # 개봉일
     genres               = models.CharField(max_length=30, blank=True)               # 장르
     

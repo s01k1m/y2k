@@ -11,6 +11,8 @@
 </template>
 <script>
 import axios from 'axios'
+// import fs from 'fs';
+import FormData from 'form-data';
 
 export default {
   name: 'CreateView',
@@ -42,20 +44,13 @@ export default {
     sendImages(e) {
       e.preventDefault()
       console.log('sendImages 실행합니다.')
-      let info = new FormData()
-      // info.append('files', this.files)
-      info.files = this.files
-      if (this.files===null) {             // 파일을 보내지 않을 경우
-        info.append('files', [])
+      var info = new FormData()
+      if (this.files) {             // 파일 있으면
+        info.images = this.files
       } else {
         console.log(
-          '파일은 있음'
+          '파일 없음'
         )
-        // info.append('files', this.files)
-
-        // for (let i = 0; i < this.files.length; i++) {   // 파일이 하나 이상인 경우
-        //   info.append('files', this.files[i]);
-        // }
       }
       console.log('info: ', info)
       console.log('files: ', this.files)
@@ -64,16 +59,19 @@ export default {
         headers: {
           'Content-Type': 'multipart/form-data', // Content-Type을 변경해야 파일이 전송됨
           'Authorization': `token ${token}`,
-          'Access-Control-Allow-Origin':'http://127.0.0.1:8000/'
+          'Access-Control-Allow-Origin':'http://127.0.0.1:8000/create/'
           }
       }
       console.log(info)
       axios.post(
-        'http://127.0.0.1:8000/', 
+        'http://127.0.0.1:8000/create/', 
         info, config)
       .then((res) => {
         console.log('데이터를 http://127.0.0.1:8000/create/로 보내고 있음')
         console.log(res) // 필요한 것 넣어서 쓰면됨
+      })
+      .catch((err) => {
+        console.log(err.response)
       })
     }
   }
