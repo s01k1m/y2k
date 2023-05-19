@@ -4,11 +4,11 @@ from django.conf import settings
 
 class Movie(models.Model):
     id                   = models.AutoField(primary_key=True)         # pk 역할
-    movie_title                = models.IntegerField()                         # 해당 영화 TMDB id
-    movie_id         = models.CharField(max_length=20)               # 영화 이름
-    overview = models.TextField()
-    movie_release_date = models.DateField()                            # 개봉일
-    genre               = models.CharField(max_length=30, blank=True)               # 장르
+    movie_title          = models.IntegerField()                         # 해당 영화 TMDB id
+    movie_id             = models.CharField(max_length=20)               # 영화 이름
+    overview             = models.TextField()
+    movie_release_date   = models.DateField()                            # 개봉일
+    genre                = models.CharField(max_length=30, blank=True)               # 장르
     
     # title = models.CharField(max_length=100)
     # release_date = models.DateField()
