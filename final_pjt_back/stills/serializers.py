@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from stills.models import Still
+from .models import Movie
 
 
 # class DecodeSerializer(serializers.ModelSerializer) :
@@ -8,7 +8,7 @@ from stills.models import Still
 #         model = Still
 #         fields = '__all__'
 
-class StillSerializer(serializers.ModelSerializer):
+class MovieSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Still
+        model = Movie
         fields = '__all__'

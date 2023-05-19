@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse, HttpResponse
 import json
-from .serializers import DecodeSerializer
+from .serializers import StillSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -10,30 +10,34 @@ from stills.models import Movie
 
 @api_view(['GET', 'POST'])
 def post(request) :
-    print('#' * 30)
-    data = request.FILES
-    print('request data: ', data)
-    #serializer 직렬화
-    ###################################
-    # 컬러를 뽑는 함수 또는 로직을 추가해야합니다.
-    color = 'RED'
-    m = Movie.objects.get(pk=1)
-    u = get_user_model()
-    uu = u.objects.get(pk=1)
-    serializer = DecodeSerializer(data = {'still_color':"RED", 'still_image' : request.data, 'movie_id': m, 'user': uu})
-    print(serializer)
+    # print('#' * 30)
+    # data = request.FILES
+    # print('request data: ', data)
+    # #serializer 직렬화
+    # ###################################
+    # # 컬러를 뽑는 함수 또는 로직을 추가해야합니다.
+    # color = 'RED'
+    # m = Movie.objects.get(pk=1)
+    # u = get_user_model()
+    # uu = u.objects.get(pk=1)
+    # serializer = DecodeSerializer(data = {'still_color':"RED", 'still_image' : request.data, 'movie_id': m, 'user': uu})
+    # print(serializer)
 
     
-    # 데이터 유효성 검사
-    if serializer.is_valid():
-        # DB에 저장
-        print('serializer.is valid 성공')
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    # # 데이터 유효성 검사
+    # if serializer.is_valid():
+    #     # DB에 저장
+    #     print('serializer.is valid 성공')
+    #     serializer.save()
+    #     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+    if request.method == 'POST':
+        serializer = StillSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
     

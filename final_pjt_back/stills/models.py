@@ -3,20 +3,20 @@ from django.conf import settings
 
 
 class Movie(models.Model):
-    # id                   = models.AutoField(primary_key=True)         # pk 역할
-    # title                = models.IntegerField()                         # 해당 영화 TMDB id
-    # movie_title         = models.CharField(max_length=20)               # 영화 이름
-    # 개요
-    # release_date = models.DateField()                            # 개봉일
-    genres               = models.CharField(max_length=30, blank=True)               # 장르
-    
-    title = models.CharField(max_length=100)
-    release_date = models.DateField()
-    popularity = models.FloatField(blank=True, null=True)
-    vote_count = models.IntegerField()
-    vote_average = models.FloatField()
+    id                   = models.AutoField(primary_key=True)         # pk 역할
+    movie_title                = models.IntegerField()                         # 해당 영화 TMDB id
+    movie_id         = models.CharField(max_length=20)               # 영화 이름
     overview = models.TextField()
-    poster_path = models.CharField(max_length=200)
+    movie_release_date = models.DateField()                            # 개봉일
+    genre               = models.CharField(max_length=30, blank=True)               # 장르
+    
+    # title = models.CharField(max_length=100)
+    # release_date = models.DateField()
+    # popularity = models.FloatField(blank=True, null=True)
+    # vote_count = models.IntegerField()
+    # vote_average = models.FloatField()
+    # overview = models.TextField()
+    # poster_path = models.CharField(max_length=200)
     # genres = models.ManyToManyField(Genre, blank=True)
     
 # Create your models here.
