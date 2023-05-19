@@ -12,11 +12,12 @@
     </div>
     <div class='router' >
       
-      <router-link :to="{ name: 'signup' }">아직 STILL을 사용하고 있지 않으신가요? 가입하기</router-link>
+      <router-link :to="{ name: 'signup' }">아직 STILLER을 사용하고 있지 않으신가요? 가입하기</router-link>
     </div>
       <!-- <button type="submit" v-on:click="Signin">Sign in</button> -->
-  </div>  
+  </div>
 </template>
+
 
 <script>
 // import axios from 'axios'
@@ -45,6 +46,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped>
 
