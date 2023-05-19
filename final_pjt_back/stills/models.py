@@ -41,14 +41,14 @@ class Still(models.Model):
     # ]
     
     
-    id = models.AutoField(primary_key=True)                            # pk 역할
+    id = models.AutoField(primary_key=True, unique=True)                            # pk 역할
     still_image = models.ImageField(null=True)                                   # 스틸컷
     still_color = models.CharField(
         max_length=6, blank=True
         # choices=COLOR_IN_STILL_CHOCIES,
     )                                                                   # 스틸컷 컬러 카테고리
-    movie_id = models.ForeignKey(Movie, on_delete=models.CASCADE)       # 무비 id
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    movie_id = models.ForeignKey(Movie, on_delete=models.CASCADE, null=True)       # 무비 id
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     # like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='likes')
 
 
