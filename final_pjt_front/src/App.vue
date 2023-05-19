@@ -87,6 +87,7 @@ nav {
   padding: 0px;
   display: flex;
   align-items: center;
+    padding: 12px;
 }
 
 
@@ -96,13 +97,14 @@ nav a {
   font-weight: bold;
   color: #000000;
   margin-left : 10px;
+  padding: 12px;
 
 }
 
 nav a.go:focus {
   color: #ffffff;
   background-color: black;
-  padding: 12px;
+
   border-radius: 24px;
 }
 
