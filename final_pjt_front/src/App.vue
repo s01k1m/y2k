@@ -79,7 +79,7 @@ export default {
 }
 
 .logo {
-  height: 20px;
+  height: 50px;
 }
 
 nav {
