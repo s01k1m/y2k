@@ -1,10 +1,10 @@
 from django.urls import path
 from . import views
-from .views import APITest
+
 
 
 urlpatterns = [
-    path("", APITest.as_view(), name="post")
+    path("", views.post, name="post")
 ]
 
 '''

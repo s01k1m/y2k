@@ -40,39 +40,31 @@ export default {
         this.$router.push({ name: 'login' })
       } 
     },
-    // image 보내기
     sendImages(e) {
-      e.preventDefault()
-      console.log('sendImages 실행합니다.')
-      var info = new FormData()
-      if (this.files) {             // 파일 있으면
-        info.images = this.files
-      } else {
-        console.log(
-          '파일 없음'
-        )
-      }
-      console.log('info: ', info)
-      console.log('files: ', this.files)
-      const token = localStorage.getItem("token") // token을 세션에 저장시켜 사용했기 때문에
-      let config = {
-        headers: {
-          'Content-Type': 'multipart/form-data', // Content-Type을 변경해야 파일이 전송됨
-          'Authorization': `token ${token}`,
-          'Access-Control-Allow-Origin':'http://127.0.0.1:8000/create/'
-          }
-      }
-      console.log(info)
-      axios.post(
-        'http://127.0.0.1:8000/create/', 
-        info, config)
-      .then((res) => {
-        console.log('데이터를 http://127.0.0.1:8000/create/로 보내고 있음')
-        console.log(res) // 필요한 것 넣어서 쓰면됨
-      })
-      .catch((err) => {
-        console.log(err.response)
-      })
+    e.preventDefault()
+    const form = new FormData();
+    console.log(this.files)
+    // form.images = this.files
+    form.append('still_image', this.files);
+    console.log(form.images)
+    // axios({
+    //   method: "POST",
+    //   url: "http://127.0.0.1:8000/create/",
+    //   body: form,
+    //   headers: { "Content-Type": "multipart/form-data"},
+    // })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (response) {
+    //     //handle error
+    //     console.log(response);
+    //   });
+    axios.post("http://127.0.0.1:8000/create/", form, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    });
     }
   }
 }
@@ -82,5 +74,4 @@ export default {
 #create {
   margin: 24px;
 }
-
 </style>
