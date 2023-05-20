@@ -2,7 +2,7 @@
   <div class="create">
     <h1>스틸컷을 크리에이트하는 포스팅 페이지입니다. ^^</h1>
     <form>
-      <v-file-input v-model="files" :multiple="false" placeholder="파일찾기" label="File input" :show-size="1000">d</v-file-input>
+      <v-file-input v-model="files" :multiple="false" label="File input"></v-file-input>
       <!-- 여러파일 보낼경우 multiple 사용 -->
       <button @click="sendImages">submit</button>
     </form>
@@ -13,6 +13,8 @@
 // import axios from 'axios'
 // import fs from 'fs';
 import FormData from 'form-data';
+
+
 
 export default {
   name: 'CreateView',
@@ -75,8 +77,16 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #create {
   margin: 24px;
+
+}
+
+
+form  {
+
+  width: 400px;
+  margin: 0 auto;
 }
 </style>

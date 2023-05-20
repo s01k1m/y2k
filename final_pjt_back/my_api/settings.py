@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'allauth',
     'allauth.account',
-	'allauth.socialaccount',
+    'allauth.socialaccount',
     'corsheaders',
 
     # [3] django basic apps
@@ -80,9 +80,9 @@ REST_FRAMEWORK = {
 
 SITE_ID = 1
 
-# 
+#
 REST_AUTH = {
-	'SESSION_LOGIN': False,
+    'SESSION_LOGIN': False,
 }
 
 MIDDLEWARE = [
@@ -185,5 +185,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # media
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR/ "media"
-
+MEDIA_ROOT = BASE_DIR / "media"

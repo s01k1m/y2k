@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import Intro from '../views/IntroView.vue'
 import Home from '../views/HomeView.vue'
 import Search from '../views/SearchView.vue'
 import Create from '../views/CreateView.vue'
@@ -12,6 +13,11 @@ import Collection from '../views/CollectionView.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/',
+    name: 'intro',
+    component: Intro
+  },
   {
     path: '/home',
     name: 'home',

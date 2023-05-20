@@ -1,0 +1,23 @@
+{
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "[django-html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "prettier.requireConfig": true,
+    "python.formatting.provider": "none",
+    "emmet.syntaxProfiles": {
+      "vue-html": "html",
+      "vue": "html"
+    },
+    "emmet.includeLanguages": {
+      "vue-html": "html",
+      "vue": "html"
+    }
+  }
