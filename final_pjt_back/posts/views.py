@@ -7,21 +7,26 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import get_user_model
 from stills.models import Movie
-from rest_framework.permissions import IsAuthenticated
+
+from colorthief import ColorThief
+import matplotlib.pyplot as plt
+import colorsys
 
 
 @api_view(['GET', 'POST'])
 def post(request):
-    if request.user.is_authenticated:
-        print("user")
+    # 이미지 파일이 있다면 컬러를 검사한다.
     if request.method == 'POST':
         print('★'*30)
-        # 이미지 파일을 포함한 데이터를 전송하기 위해 MultiValueDict에서 파일과 나머지 필드를 분리합니다.
+        # 유저가 제출한 이미지를 가져온다
         image_file = request.FILES.get('still_image')
-        remaining_fields = request.POST.dict()
-        remaining_fields.pop('still_image', None)
+
+        ct = ColorThief(image_file)
+        dominant_color = ct.get_color(quality=1)
+        print(dominant_color)
+        print('^' * 50)
         print('11')
-        print(request.user.id)
+        print('이 이미지를 작성한 user id : ', request.user.id)
         # 이미지 파일을 업로드하고 나머지 필드와 함께 직렬화할 수 있는 데이터 객체를 생성합니다.
         data = {
             'still_image': image_file,
@@ -32,11 +37,9 @@ def post(request):
         }
 
         # 'user': request.user.id,  # post 요청을 보낸 유저의 아이디로 설정합니다.
-        # 'movie_id': 1,
-
+        # TODO: 'movie_id': 1, 아직 로직 구현안됨
         print('22')
         serializer = PostSerializer(data=data)
-        print(serializer, "valid한가?")
         if serializer.is_valid():
             print('33')
             print(serializer)
@@ -48,66 +51,4 @@ def post(request):
         print(serializer.errors)
         return Response(serializer.errors, status=400)
 
-    # if request.method == 'POST':
-    #     print('POST 요청')
-    #     data = request.FILES
-    #     print(request.data)
-    #     serializer = StillSerializer(data=request.data)
-
-    #     if serializer.is_valid(raise_exception=True):
-    #         print('♥︎☀︎★☆' * 30)
-    #         data = request.FILES
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     # serializer 직렬화
-    #     ###################################
-    #     # 컬러를 뽑는 함수 또는 로직을 추가해야합니다.
-    #     color = 'RED'
-    #     # m = Movie.objects.get(pk=1)
-    #     u = get_user_model()
-    #     uu = u.objects.get(pk=1)
-
-    # serializer = StillSerializer(request.POST, request.FILES)
-    # print(serializer)
-
-    # # # 데이터 유효성 검사
-    # if serializer.is_valid():
-    #     # DB에 저장
-    #     print('serializer.is valid 성공')
-    #     serializer.save()
-    #     return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    # if request.method == 'POST':
-    #     serializer = StillSerializer(data=request.data)
-    #     if serializer.is_valid(raise_exception=True):
-    #         serializer.save(user=request.user)
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.data , status=status.HTTP_201_CREATED)
-    return Response(status=400)
-
-    # if request.method == "POST":
-
-    #     data = json.loads(request.body)
-    #     # username = data['username']
-    #     # password = data['password']
-
-    #     img_string = request.data['img_base64'] # POST요청을 통해 받은 base64정보
-    #     imgdata = base64.b64decode(img_string) # 디코딩
-
-    #     filename = f'temp_image_{request.user}.jpg' # DB에 저장하지 않고 사용한다음 지우기 위해
-    #     with open(filename, 'wb') as f:
-    #         f.write(imgdata)				# 디코딩한 이미지를 사용하기 위해 잠시 저장
-    #     #### 이미지를 사용하는 코드 #####
-    #         os.remove(filename)    				# 이미지를 사용한 후 삭제
-    #         return Response({'result' : result})
-
-    #     # if username and password:
-    #     #     response = f"Welcome {username}"
-    #     #     return JsonResponse({"msg":response}, status=201)
-
-    #     # else:
-    #     #     response = "username or password is empty"
-    #     #     return JsonResponse({"err":response}, status=400)
-
-    # return render(request, 'submit-form.html')
+    return Response(status=200)
