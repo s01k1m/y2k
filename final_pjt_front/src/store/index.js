@@ -11,7 +11,8 @@ export default new Vuex.Store({
   state: {
     userInfo: null, //아직 정보를 받아오지 않은 상태이므로 null
     isLogin: false, //로그인이 되었다면 true로 변경
-    isLoginError: false
+    isLoginError: false,
+    token: null,
   }, 
   mutations: {
     loginSuccess(state, payload) { //로그인 성공시,
@@ -33,7 +34,9 @@ export default new Vuex.Store({
 
     /////////// signup & login -> 완료하면 토큰 발급 ////////
     SAVE_TOKEN(state, token) {
+      console.log('SAVE_TOKEN: ',token)
       state.token = token
+      console.log(state.token)
       router.push({ name: "home" }); // store/index.js $router 접근 불가 -> import를 해야함
     }
   },
@@ -56,7 +59,7 @@ export default new Vuex.Store({
         // localStorage.setItem('refresh_token', refretoken)
         
         this.dispatch("getMemberInfo");
-        this.commit('SAVE_TOKEN', res.data.key)
+        this.commit('SAVE_TOKEN', token)
       })  
       .catch(() => {
         alert("로그인 실패 : 이메일과 비밀번호를 확인하세요.");

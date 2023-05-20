@@ -7,8 +7,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import get_user_model
 from stills.models import Movie
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def post(request) :
     # print('#' * 30)
     # data = request.FILES
@@ -34,6 +37,8 @@ def post(request) :
     # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     if request.method == 'POST':
+        print('#' * 30)
+        print(request.data)
         serializer = StillSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
