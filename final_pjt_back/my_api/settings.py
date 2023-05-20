@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'allauth',
     'allauth.account',
-	'allauth.socialaccount',
+    'allauth.socialaccount',
     'corsheaders',
 
     # [3] django basic apps
@@ -80,9 +80,9 @@ REST_FRAMEWORK = {
 
 SITE_ID = 1
 
-# 
+#
 REST_AUTH = {
-	'SESSION_LOGIN': False,
+    'SESSION_LOGIN': False,
 }
 
 MIDDLEWARE = [
@@ -91,6 +91,7 @@ MIDDLEWARE = [
 
     # CORS
     "corsheaders.middleware.CorsMiddleware",
+    # Django 설정 파일인 settings.py에서 MIDDLEWARE 옵션을 확인하여 사용 중인 미들웨어의 순서가 올바른지 확인해야 합니다
 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -185,5 +186,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # media
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR/ "media"
-
+MEDIA_ROOT = BASE_DIR / "media"
