@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 import json
-from .serializers import PostSerializer
+from .serializers import PostSerializer, MovieSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -17,14 +17,15 @@ def post(request):
     if request.method == 'POST':
         print('★'*30)
         # 유저가 제출한 이미지를 가져온다
-
+        image_file = request.FILES.get('still_image')
+        # 유저가 제출한 movie_id를 가져온다
+        movie_id = request.POST.get('movie_id')
         '''
         still_color(대표 색상) 추출 로직
         '''
         from colorthief import ColorThief
 
         # [1] (r, g, b)값 뽑아서 딕셔너리로 저장: 최댓값, 중간값, 최솟값을 키로 찾을 수 있도록
-        image_file = request.FILES.get('still_image')
         ct = ColorThief(image_file)
         r, g, b = ct.get_color(quality=1)
         rgb = {'r': r, 'g': g, 'b': b}
@@ -84,7 +85,7 @@ def post(request):
                 # [7] 초록 계열: 초록
                 still_color = 'GREEN'
 
-            else: 
+            else:
                 # [8] 파랑 계열: 파랑, 분홍, 보라
                 if mid == 'r':                      # 파랑, 분홍, 보라
                     if rgb[mid] >= 191:             # <<분홍>>
@@ -97,7 +98,6 @@ def post(request):
                     still_color = 'BLUE'
 
         print('^' * 50)
-        print('11')
         print('이 이미지를 작성한 user id : ', request.user.id)
         print('이미지 파일: ', image_file)
         # 이미지 파일을 업로드하고 나머지 필드와 함께 직렬화할 수 있는 데이터 객체를 생성합니다.
@@ -106,19 +106,17 @@ def post(request):
             # **remaining_fields,
             'user': request.user.id,  # post 요청을 보낸 유저의 아이디로 설정합니다.
             'still_color': still_color,
-            'movie_id': 1,
+            'movie_id': movie_id,
         }
 
         # 'user': request.user.id,  # post 요청을 보낸 유저의 아이디로 설정합니다.
         # TODO: 'movie_id': 1, 아직 로직 구현안됨
-        print('22')
         serializer = PostSerializer(data=data)
         print('serializer: ', serializer)
         if serializer.is_valid():
-            print('33')
+            print('serializer is valid!')
             print(serializer)
             serializer.save()
-            print('44')
             print('★'*30, '성공')
             return Response(serializer.data, status=201)
         print('♥︎'*30)
@@ -126,3 +124,15 @@ def post(request):
         return Response(serializer.errors, status=400)
 
     return Response(status=200)
+
+
+@api_view(['GET'])
+def movie_for_create(request, search_query):
+    if request.method == 'GET':
+        #  movie_title 필드를 대소문자를 구분하지 않고 검색어 search_query를 포함하는 경우에 해당하는 무비 데이터를 가져온다.
+        movies = Movie.objects.filter(movie_title__icontains=search_query)
+        serializer = MovieSerializer(movies, many=True)
+        print('♼' * 30)
+        print('Movieseriazlier : ', serializer)
+        # 만약 일치하는 데이터가 없다면 []가 반환된다.
+        return JsonResponse(serializer.data, safe=False)

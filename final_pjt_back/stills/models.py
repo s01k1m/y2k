@@ -11,7 +11,7 @@ class Movie(models.Model):
     genre = models.CharField(max_length=30, blank=True)               # 장르
 
     def __str__(self):
-        return self.name
+        return self.movie_title
     # title = models.CharField(max_length=100)
     # release_date = models.DateField()
     # popularity = models.FloatField(blank=True, null=True)
@@ -55,9 +55,6 @@ class Still(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     # like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='likes')
-
-    def __str__(self):
-        return self.name
 
 
 class Collection(models.Model):
