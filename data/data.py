@@ -43,15 +43,17 @@ for page in movie_list:
     raw_data = json.loads(r.text)['results']
 
     for d in raw_data:
-        movie = {}
-        movie['movie_id'] = d['id']
-        movie['movie_title'] = d['title']
-        movie['movie_released_date'] = d['release_date']
-        movie['overview'] = d['overview']
-        movie['genre'] = []
+        movie = {"model" : "stills.moive", "pk": page, "fields" : {}}
+        movie["fields"]['movie_id'] = d['id']
+        movie["fields"]['movie_title'] = d['title']
+        movie["fields"]['movie_released_date'] = d['release_date']
+        movie["fields"]['overview'] = d['overview']
+        movie["fields"]['genre'] = []
         for genre in d['genre_ids']:
-            movie['genre'].append(genre_list[genre])
+            movie["fields"]['genre'].append(genre_list[genre])
         data.append(movie)
 
 with open(file_path, 'w', encoding='utf-8') as outfile:
     json.dump(data, outfile, indent=4, ensure_ascii=False)
+
+print('finished')
