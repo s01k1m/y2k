@@ -1,36 +1,73 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 import json
-from .serializers import StillSerializer
+from .serializers import PostSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import get_user_model
 from stills.models import Movie
+from rest_framework.permissions import IsAuthenticated
 
 
 @api_view(['GET', 'POST'])
 def post(request):
+    if request.user.is_authenticated:
+        print("user")
     if request.method == 'POST':
-        print('POST 요청')
-        data = request.FILES
-        print(request.data)
-        serializer = StillSerializer(data=request.data)
+        print('★'*30)
+        # 이미지 파일을 포함한 데이터를 전송하기 위해 MultiValueDict에서 파일과 나머지 필드를 분리합니다.
+        image_file = request.FILES.get('still_image')
+        remaining_fields = request.POST.dict()
+        remaining_fields.pop('still_image', None)
+        print('11')
+        print(request.user.id)
+        # 이미지 파일을 업로드하고 나머지 필드와 함께 직렬화할 수 있는 데이터 객체를 생성합니다.
+        data = {
+            'still_image': image_file,
+            # **remaining_fields,
+            'user': request.user.id,  # post 요청을 보낸 유저의 아이디로 설정합니다.
+            'still_color': 'RED',
+            'movie_id': 1,
+        }
 
-        if serializer.is_valid(raise_exception=True):
-            print('♥︎☀︎★☆' * 30)
-            data = request.FILES
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # serializer 직렬화
-        ###################################
-        # 컬러를 뽑는 함수 또는 로직을 추가해야합니다.
-        color = 'RED'
-        # m = Movie.objects.get(pk=1)
-        u = get_user_model()
-        uu = u.objects.get(pk=1)
+        # 'user': request.user.id,  # post 요청을 보낸 유저의 아이디로 설정합니다.
+        # 'movie_id': 1,
 
-        # serializer = StillSerializer(request.POST, request.FILES)
-        # print(serializer)
+        print('22')
+        serializer = PostSerializer(data=data)
+        print(serializer, "valid한가?")
+        if serializer.is_valid():
+            print('33')
+            print(serializer)
+            serializer.save()
+            print('44')
+            print('★'*30)
+            return Response(serializer.data, status=201)
+        print('♥︎'*30)
+        print(serializer.errors)
+        return Response(serializer.errors, status=400)
+
+    # if request.method == 'POST':
+    #     print('POST 요청')
+    #     data = request.FILES
+    #     print(request.data)
+    #     serializer = StillSerializer(data=request.data)
+
+    #     if serializer.is_valid(raise_exception=True):
+    #         print('♥︎☀︎★☆' * 30)
+    #         data = request.FILES
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     # serializer 직렬화
+    #     ###################################
+    #     # 컬러를 뽑는 함수 또는 로직을 추가해야합니다.
+    #     color = 'RED'
+    #     # m = Movie.objects.get(pk=1)
+    #     u = get_user_model()
+    #     uu = u.objects.get(pk=1)
+
+    # serializer = StillSerializer(request.POST, request.FILES)
+    # print(serializer)
 
     # # # 데이터 유효성 검사
     # if serializer.is_valid():

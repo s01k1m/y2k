@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 // import fs from 'fs';
 import FormData from 'form-data';
 
@@ -42,36 +42,29 @@ export default {
         this.$router.push({ name: 'login' })
       } 
     },
-    // sendImages(e) {
-    // e.preventDefault()
-    // const form = new FormData();
-    // console.log(this.files)
-    // // form.images = this.files
-    // form.append('still_image', this.files);
-    // console.log(form.images)
-    // // axios({
-    // //   method: "POST",
-    // //   url: "http://127.0.0.1:8000/create/",
-    // //   body: form,
-    // //   headers: { "Content-Type": "multipart/form-data"},
-    // // })
-    // //   .then(function (response) {
-    // //     console.log(response);
-    // //   })
-    // //   .catch(function (response) {
-    // //     //handle error
-    // //     console.log(response);
-    // //   });
-    // axios.post("http://127.0.0.1:8000/create/", form, {
-    // headers: {
-    //   "Content-Type": "multipart/form-data",
-    // },
-    // });
-    // }
-    sendImages() {
-      const form = new FormData()
-      form.append()
-      this.files
+    sendImages(e) {
+    e.preventDefault()
+    const form = new FormData();
+    console.log(this.files)
+    // form.images = this.files
+    form.append('still_image', this.files);
+    console.log(form.images)
+
+    let token = localStorage.getItem("access_token")
+    axios.post("http://127.0.0.1:8000/create/", form, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      // 와 이거 하나땜에 몇시간을 ^0^ 하하하핳ㅋㅋㅋㅋ
+      Authorization : 'Token ' + token
+    },
+    })
+          .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
     }
   }
 }

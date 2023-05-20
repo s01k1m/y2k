@@ -91,6 +91,7 @@ MIDDLEWARE = [
 
     # CORS
     "corsheaders.middleware.CorsMiddleware",
+    # Django 설정 파일인 settings.py에서 MIDDLEWARE 옵션을 확인하여 사용 중인 미들웨어의 순서가 올바른지 확인해야 합니다
 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
