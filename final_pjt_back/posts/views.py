@@ -8,8 +8,6 @@ from rest_framework import status
 from django.contrib.auth import get_user_model
 from stills.models import Movie
 
-from colorthief import ColorThief
-
 # pip install opencv-python
 
 
@@ -19,13 +17,15 @@ def post(request):
     if request.method == 'POST':
         print('★'*30)
         # 유저가 제출한 이미지를 가져온다
-        image_file = request.FILES.get('still_image')
 
         '''
         still_color(대표 색상) 추출 로직
         '''
+        from colorthief import ColorThief
+
         # [1] (r, g, b)값 뽑아서 딕셔너리로 저장: 최댓값, 중간값, 최솟값을 키로 찾을 수 있도록
-        ct = ColorThief("beige.jpg")
+        image_file = request.FILES.get('still_image')
+        ct = ColorThief(image_file)
         r, g, b = ct.get_color(quality=1)
         rgb = {'r': r, 'g': g, 'b': b}
         still_color = 'WHITE'
@@ -99,6 +99,7 @@ def post(request):
         print('^' * 50)
         print('11')
         print('이 이미지를 작성한 user id : ', request.user.id)
+        print('이미지 파일: ', image_file)
         # 이미지 파일을 업로드하고 나머지 필드와 함께 직렬화할 수 있는 데이터 객체를 생성합니다.
         data = {
             'still_image': image_file,
@@ -112,6 +113,7 @@ def post(request):
         # TODO: 'movie_id': 1, 아직 로직 구현안됨
         print('22')
         serializer = PostSerializer(data=data)
+        print('serializer: ', serializer)
         if serializer.is_valid():
             print('33')
             print(serializer)
