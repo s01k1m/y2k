@@ -2,9 +2,10 @@ from django.urls import path
 from . import views
 
 
-
 urlpatterns = [
-    path("", views.post, name="post")
+    path("", views.post, name="post"),
+    path("getmovie/<str:search_query>/",
+         views.movie_for_create, name='find_movie'),
 ]
 
 '''
