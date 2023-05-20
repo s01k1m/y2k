@@ -9,6 +9,6 @@ dominant_color = ct.get_color(quality=1)
 print(dominant_color)
 plt.imshow([[dominant_color]])
 plt.show()
-dominant_color = img.imread(request.FILES['still_image'])
 
-print(dominant_color.shape)
+# dominant_color = img.imread(request.FILES['still_image'])
+# print(dominant_color.shape)

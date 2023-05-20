@@ -32,6 +32,7 @@ for genre in raw_data:
 
 
 data = []
+cnt = 1
 # 각 영화의 정보 추출하기
 for page in movie_list:
     # print(f"#############{page}#############")
@@ -43,7 +44,7 @@ for page in movie_list:
     raw_data = json.loads(r.text)['results']
 
     for d in raw_data:
-        movie = {"model" : "stills.moive", "pk": page, "fields" : {}}
+        movie = {"model" : "stills.moive", "pk": cnt, "fields" : {}}
         movie["fields"]['movie_id'] = d['id']
         movie["fields"]['movie_title'] = d['title']
         movie["fields"]['movie_released_date'] = d['release_date']
@@ -52,6 +53,7 @@ for page in movie_list:
         for genre in d['genre_ids']:
             movie["fields"]['genre'].append(genre_list[genre])
         data.append(movie)
+        cnt += 1
 
 with open(file_path, 'w', encoding='utf-8') as outfile:
     json.dump(data, outfile, indent=4, ensure_ascii=False)
