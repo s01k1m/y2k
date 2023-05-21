@@ -45,8 +45,8 @@ class Still(models.Model):
     # ]
 
     id = models.AutoField(primary_key=True)                            # pk 역할
-    still_image = models.ImageField(
-        upload_to="stills/", null=False)                                   # 스틸컷
+    still_image = models.FileField(
+        upload_to="stills/", null=False)                               # 스틸컷
     still_color = models.CharField(
         max_length=6, blank=True
         # choices=COLOR_IN_STILL_CHOCIES,

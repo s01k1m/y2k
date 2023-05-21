@@ -7,6 +7,7 @@
         name="still_image"
         :multiple="false"
         label="File input"
+        accept="image/png, image/jpeg, image/jpg, image/gif"
       ></v-file-input>
       <input v-model="searchQuery" @input="getMovies" />
       <div v-if="movies.length === 0">Loading movies...</div>
@@ -99,9 +100,9 @@ export default {
         );
       } else {
         const form = new FormData();
-        form.append("still_image", this.files);
-        form.append("movie_id", this.movie_id);
-        let token = localStorage.getItem("access_token");
+        form.append("still_image", this.files)
+        form.append("movie_id", this.movie_id)
+        let token = localStorage.getItem("access_token")
         axios
           .post("http://127.0.0.1:8000/create/", form, {
             headers: {
