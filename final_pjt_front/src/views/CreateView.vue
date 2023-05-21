@@ -1,35 +1,48 @@
 <template>
   <div class="create">
-    <h1>스틸컷을 크리에이트하는 포스팅 페이지입니다. ^^</h1>
+    <h1>Create your STILL</h1>
+<p>Pick your STILL Image file.<br>
+Then, search and pick a movie for it.<br>And submit!</p>
+
     <form>
       <v-file-input
         v-model="files"
         name="still_image"
         :multiple="false"
-        label="File input"
+        label="Find STILL"
         accept="image/png, image/jpeg, image/jpg, image/gif"
       ></v-file-input>
-      <input v-model="searchQuery" @input="getMovies" />
+            <v-text-field v-model="searchQuery" id="getMovies" prepend-icon="mdi-magnify" label="Find Movie" @input="getMovies" />
+              <div class=
+  "form-wrapper">
       <div v-if="movies.length === 0">Loading movies...</div>
-      <div v-else>
-        <!-- <GetMovieData v-for="m in movies" :key="m.id" :movie="m"></GetMovieData> -->
-        <div v-for="movie in movies" :key="movie.id">
+      <div v-else style="background-color: #e9e9e9; border-radius: 30px; padding: 30px;">
+        <div
+          v-for="movie in movies"
+          :key="movie.id"
+          id="forGetMovies"
+        >
           <input
             type="radio"
             name="myMovie"
             @click="confirm"
             :id="movie.id"
             :value="movie.movie_title"
+            class="radio-button"
           />
-          <label :for="movie.id"
-            >{{ movie.movie_title }} : {{ movie.id }}</label
-          >
+          <label :for="movie.id" class="radio-label">{{ movie.movie_title }} : {{ movie.id }}</label>
         </div>
       </div>
 
       <br />
-      <button @click="sendImages">submit</button>
+        </div>
+      <button @click="sendImages" id="stillSubmit">submit</button>
+      <br>
+      <br>
+      <br>
+
     </form>
+
   </div>
 </template>
 <script>
@@ -94,10 +107,12 @@ export default {
     // 스틸컷을 최종 제출
     sendImages(e) {
       e.preventDefault(); // 폼 새로 고침 방지
-      if (!this.movie_id) {
+      if (!this.files){
+        alert("스틸컷 이미지를 업로드 하세요. 업로드 전에는 제출할 수 없습니다.")
+      } else if (!this.movie_id) {
         alert(
           "스틸컷의 영화 이름을 검색해서 선택하세요. 선택하기 전에는 제출할 수 없습니다."
-        );
+        )
       } else {
         const form = new FormData();
         form.append("still_image", this.files)
@@ -125,18 +140,71 @@ export default {
 </script>
 
 <style scoped>
+
+  .form-wrapper {
+    max-height: 400px; /* Adjust the value as needed */
+    overflow-y: auto;
+    margin-bottom: 20px; /* Add margin to create space between form and submit button */
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+
+  }
+
+  /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+.form-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+
+
 #create {
   margin: 24px;
 }
-
+h1 {
+  margin-bottom: 20px;
+}
 form {
   width: 400px;
   margin: 0 auto;
 }
-</style>
 
-input[name="myMovie"]:checked  + label{
-  background-color: #333;
-  color: #fff;
-
+#forGetMovies{
+  display: flex;
+  margin: 10px 0;
+  text-align: left;
 }
+  .radio-button {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #000;
+    border-radius: 50%;
+    outline: none;
+    margin-right: 10px;
+    cursor: pointer;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+
+  .radio-button:checked {
+    background-color: #000;
+  }
+
+  .radio-label {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .radio-label:hover {
+    color: rgb(0, 0, 0);
+  }
+
+  /* 체크된 라디오 버튼 라벨에 대한 스타일링 */
+  .radio-button:checked + .radio-label {
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+  }
+
+button.stillSubmit{
+  padding-bottom: 30px;
+}
+</style>
