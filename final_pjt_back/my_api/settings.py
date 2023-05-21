@@ -90,7 +90,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
 
     # CORS
-    "corsheaders.middleware.CorsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     # Django 설정 파일인 settings.py에서 MIDDLEWARE 옵션을 확인하여 사용 중인 미들웨어의 순서가 올바른지 확인해야 합니다
 
     'django.middleware.common.CommonMiddleware',
@@ -190,3 +190,8 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # settings.py
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 MB (필요에 따라 값 조정)
+
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]

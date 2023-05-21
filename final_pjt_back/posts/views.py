@@ -18,12 +18,17 @@ def post(request):
         print('★'*30)
         # 유저가 제출한 이미지를 가져온다
         image_file = request.FILES.get('still_image')
-        print(image_file)
         # 유저가 제출한 movie_id를 가져온다
         movie_id = request.POST.get('movie_id')
+
+        print('제출한 파일:', image_file)
+        print('파일의 영화 id : ', movie_id)
+        print('이 이미지를 작성한 user id : ', request.user.id)
+
         '''
         still_color(대표 색상) 추출 로직
         '''
+        print('이미지 대표색상 추출 중.... 기다려 주세요....')
         # [1] (r, g, b)값 뽑아서 딕셔너리로 저장: 최댓값, 중간값, 최솟값을 키로 찾을 수 있도록
         ct = ColorThief(image_file)
         r, g, b = ct.get_color(quality=1)
@@ -96,9 +101,6 @@ def post(request):
                 else:                               # <<파랑>>
                     still_color = 'BLUE'
 
-        print('^' * 50)
-        print('이 이미지를 작성한 user id : ', request.user.id)
-        print('이미지 파일: ', image_file)
         # 이미지 파일을 업로드하고 나머지 필드와 함께 직렬화할 수 있는 데이터 객체를 생성합니다.
         data = {
             'still_image': image_file,
@@ -107,11 +109,9 @@ def post(request):
             'still_color': still_color,
             'movie_id': movie_id,
         }
-
-        # 'user': request.user.id,  # post 요청을 보낸 유저의 아이디로 설정합니다.
-        # TODO: 'movie_id': 1, 아직 로직 구현안됨
         serializer = PostSerializer(data=data)
-        print('serializer: ', serializer)
+        print('serializer : ', serializer)
+        print('유효성 검사에 들어갑니다.')
         if serializer.is_valid():
             print('serializer is valid!')
             print(serializer)
