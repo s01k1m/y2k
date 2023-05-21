@@ -14,8 +14,18 @@
           <div class="after-nametag">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOUR SHOW</div>
         </div>
         <div class="arrow bounce">
-            <router-link to="/home" class="fa fa-arrow-down fa-2x">Let's go!</router-link>
-          </div>
+            <router-link :to="{ name: 'home' }" class="fa fa-arrow-down fa-2x">Let's go!</router-link><br>
+            <button @click="selectColor('RED')">RED</button> | 
+            <button @click="selectColor('ORANGE')">ORANGE</button> | 
+            <button @click="selectColor('YELLOW')">YELLOW</button> | 
+            <button @click="selectColor('GREEN')">GREEN</button> | 
+            <button @click="selectColor('BLUE')">BLUE</button> | 
+            <button @click="selectColor('PINK')">PINK</button> | 
+            <button @click="selectColor('PURPLE')">PURPLE</button> | 
+            <button @click="selectColor('WHITE')">WHITE</button> | 
+            <button @click="selectColor('GREY')">GREY</button> | 
+            <button @click="selectColor('BLACK')">BLACK</button> | 
+        </div>
       </div>
     </div>
   </div>
@@ -24,6 +34,11 @@
 <script>
 export default {
   name: "IntroView",
+  methods: {
+    selectColor(colorChoice) {
+      this.$router.push({name: 'home', params: { colorChoice: colorChoice}})
+    }
+  }
 };
 </script>
 <style scoped>
