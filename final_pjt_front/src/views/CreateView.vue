@@ -4,6 +4,7 @@
     <form>
       <v-file-input
         v-model="files"
+        name="still_image"
         :multiple="false"
         label="File input"
       ></v-file-input>

@@ -13,7 +13,7 @@ def validate_image(image):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    still_image = serializers.ImageField(validators=[validate_image])
+    # still_image = serializers.ImageField(validators=[validate_image])
 
     class Meta:
         model = Still

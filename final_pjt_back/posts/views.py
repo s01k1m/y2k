@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import get_user_model
 from stills.models import Movie
-
+from colorthief import ColorThief
 # pip install opencv-python
 
 
@@ -18,13 +18,12 @@ def post(request):
         print('★'*30)
         # 유저가 제출한 이미지를 가져온다
         image_file = request.FILES.get('still_image')
+        print(image_file)
         # 유저가 제출한 movie_id를 가져온다
         movie_id = request.POST.get('movie_id')
         '''
         still_color(대표 색상) 추출 로직
         '''
-        from colorthief import ColorThief
-
         # [1] (r, g, b)값 뽑아서 딕셔너리로 저장: 최댓값, 중간값, 최솟값을 키로 찾을 수 있도록
         ct = ColorThief(image_file)
         r, g, b = ct.get_color(quality=1)

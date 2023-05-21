@@ -187,3 +187,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
+
+# settings.py
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 MB (필요에 따라 값 조정)
