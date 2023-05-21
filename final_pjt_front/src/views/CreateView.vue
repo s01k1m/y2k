@@ -1,8 +1,10 @@
 <template>
   <div class="create">
     <h1>Create your STILL</h1>
-<p>Pick your STILL Image file.<br>
-Then, search and pick a movie for it.<br>And submit!</p>
+    <p>
+      Pick your STILL Image file.<br />
+      Then, search and pick a movie for it.<br />And submit!
+    </p>
 
     <form>
       <v-file-input
@@ -12,37 +14,48 @@ Then, search and pick a movie for it.<br>And submit!</p>
         label="Find STILL"
         accept="image/png, image/jpeg, image/jpg, image/gif"
       ></v-file-input>
-            <v-text-field v-model="searchQuery" id="getMovies" prepend-icon="mdi-magnify" label="Find Movie" @input="getMovies" />
-              <div class=
-  "form-wrapper">
-      <div v-if="movies.length === 0">Loading movies...</div>
-      <div v-else style="background-color: #e9e9e9; border-radius: 30px; padding: 30px;">
+      <v-text-field
+        v-model="searchQuery"
+        id="getMovies"
+        prepend-icon="mdi-magnify"
+        label="Find Movie"
+        @input="getMovies"
+      />
+      <div class="form-wrapper">
+        <div v-if="movies.length === 0">Loading movies...</div>
         <div
-          v-for="movie in movies"
-          :key="movie.id"
-          id="forGetMovies"
+          v-else
+          style="background-color: #e9e9e9; border-radius: 30px; padding: 30px"
         >
-          <input
-            type="radio"
-            name="myMovie"
-            @click="confirm"
-            :id="movie.id"
-            :value="movie.movie_title"
-            class="radio-button"
-          />
-          <label :for="movie.id" class="radio-label">{{ movie.movie_title }} : {{ movie.id }}</label>
+          <div v-for="movie in movies" :key="movie.id" id="forGetMovies">
+            <input
+              type="radio"
+              name="myMovie"
+              @click="confirm"
+              :id="movie.id"
+              :value="movie.movie_title"
+              class="radio-button"
+            />
+            <label :for="movie.id" class="radio-label"
+              >{{ movie.movie_title }} : {{ movie.id }}</label
+            >
+          </div>
         </div>
+
+        <br />
       </div>
-
+      <button @click="sendImages" class="stillSubmit">submit</button>
       <br />
-        </div>
-      <button @click="sendImages" id="stillSubmit">submit</button>
-      <br>
-      <br>
-      <br>
-
+      <br />
+      <br />
+      <p class="sorry">
+        It may take a moment for your submission to be saved. <br>
+        Please wait patiently. <br>
+        Thank you for your understanding!
+      </p>
+      <br />
+      <br />
     </form>
-
   </div>
 </template>
 <script>
@@ -107,17 +120,19 @@ export default {
     // 스틸컷을 최종 제출
     sendImages(e) {
       e.preventDefault(); // 폼 새로 고침 방지
-      if (!this.files){
-        alert("스틸컷 이미지를 업로드 하세요. 업로드 전에는 제출할 수 없습니다.")
+      if (!this.files) {
+        alert(
+          "스틸컷 이미지를 업로드 하세요. 업로드 전에는 제출할 수 없습니다."
+        );
       } else if (!this.movie_id) {
         alert(
           "스틸컷의 영화 이름을 검색해서 선택하세요. 선택하기 전에는 제출할 수 없습니다."
-        )
+        );
       } else {
         const form = new FormData();
-        form.append("still_image", this.files)
-        form.append("movie_id", this.movie_id)
-        let token = localStorage.getItem("access_token")
+        form.append("still_image", this.files);
+        form.append("movie_id", this.movie_id);
+        let token = localStorage.getItem("access_token");
         axios
           .post("http://127.0.0.1:8000/create/", form, {
             headers: {
@@ -128,6 +143,7 @@ export default {
           })
           .then(function (response) {
             console.log(response);
+            alert("정상적으로 제출되었습니다.");
           })
           .catch(function (response) {
             //handle error
@@ -140,23 +156,6 @@ export default {
 </script>
 
 <style scoped>
-
-  .form-wrapper {
-    max-height: 400px; /* Adjust the value as needed */
-    overflow-y: auto;
-    margin-bottom: 20px; /* Add margin to create space between form and submit button */
-    -ms-overflow-style: none; /* 인터넷 익스플로러 */
-    scrollbar-width: none; /* 파이어폭스 */
-
-  }
-
-  /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
-.form-wrapper::-webkit-scrollbar {
-  display: none;
-}
-
-
-
 #create {
   margin: 24px;
 }
@@ -168,43 +167,116 @@ form {
   margin: 0 auto;
 }
 
-#forGetMovies{
+/* getMovies */
+.form-wrapper {
+  max-height: 400px; /* Adjust the value as needed */
+  overflow-y: auto;
+  margin-bottom: 20px; /* Add margin to create space between form and submit button */
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
+/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+.form-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+#forGetMovies {
   display: flex;
   margin: 10px 0;
   text-align: left;
 }
-  .radio-button {
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border: 2px solid #000;
-    border-radius: 50%;
-    outline: none;
-    margin-right: 10px;
-    cursor: pointer;
-    margin-top: 4px;
-    flex-shrink: 0;
-  }
+.radio-button {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  outline: none;
+  margin-right: 10px;
+  cursor: pointer;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
 
-  .radio-button:checked {
-    background-color: #000;
-  }
+.radio-button:checked {
+  background-color: #000;
+}
 
-  .radio-label {
-    color: rgba(0, 0, 0, 0.6);
-  }
+.radio-label {
+  color: rgba(0, 0, 0, 0.6);
+}
 
-  .radio-label:hover {
-    color: rgb(0, 0, 0);
-  }
+.radio-label:hover {
+  color: rgb(0, 0, 0);
+}
 
-  /* 체크된 라디오 버튼 라벨에 대한 스타일링 */
-  .radio-button:checked + .radio-label {
-    font-weight: bold;
-    color: rgb(0, 0, 0);
-  }
+/* 체크된 라디오 버튼 라벨에 대한 스타일링 */
+.radio-button:checked + .radio-label {
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+}
 
-button.stillSubmit{
-  padding-bottom: 30px;
+/* 최종 제출 버튼 */
+
+button.stillSubmit {
+  position: relative;
+  background: #000;
+  border: 0;
+  padding: 14px 42px;
+  border-radius: 30px;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  font-weight: 400;
+  font-size: 12px;
+  color: #fff;
+  letter-spacing: 0.2em;
+  /* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); */
+  /* transition: all 0.2s ease; */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 수정된 부분 */
+}
+
+button.stillSubmit:hover {
+  animation: shine 1.6s ease forwards;
+  color: black;
+  border: #000 solid;
+  transition: none; /* 추가된 부분 */
+}
+
+button.stillSubmit:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: #000 solid;
+  color: black;
+  transition: none; /* 추가된 부분 */
+}
+
+.cntr {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+@keyframes shine {
+  0% {
+    background: #000;
+    transform: scale(1);
+  }
+  50% {
+    background: #fff;
+    transform: scale(1);
+  }
+  100% {
+    background: #fff;
+    transform: scale(1);
+  }
+}
+
+/* 사과 메세지 */
+.sorry {
+  color: #a89696;
 }
 </style>
