@@ -2,13 +2,21 @@
   <div class="home">
     <h1>이 페이지는 홈이면서, 스틸컷의 나열 페이지입니다.</h1>
     <h1>{{ colorChoice }}</h1>
-    <v-card id="card-container" role="list">
-      <v-card-item class="card-item" role="listitem" v-for="(still, index) in stillBasedOnColor" :key="index">
-        <v-card-title>
-          <img :src="still.still_image" alt="">{{ still.still_image }}
-        </v-card-title>
-      </v-card-item>
-    </v-card>
+    <div id="card-container">
+      <div class="card-group" v-for="(still, index) in stillBasedOnColor" :key="index">
+        <div class="card">
+          <img class="card-img" :src="'http://127.0.0.1:8000' + still.still_image" :alt="still.still_image">
+        </div>
+        <!-- <div class="card">
+          <blockquote class="blockquote mb-0 card">
+            <img class="card-img" :src="'http://127.0.0.1:8000' + still.still_image" :alt="still.still_image">
+          </blockquote>
+        </div> -->
+        <!-- <div class="card m-2" style="width: 18rem;">
+          <img class="card-img-top" :src="'http://127.0.0.1:8000' + still.still_image" :alt="still.still_image">
+        </div> -->
+      </div>
+    </div>
     <StillCard></StillCard>
   </div>
 </template>
@@ -57,16 +65,24 @@ export default {
 
 <style>
 #card-container {
-  /* position: relative;
-  display: block;
-  margin: 0 auto; */
+  position: relative;
+  display: flex;
+  margin: 0 auto;
   background-color: aquamarine;
 }
 
-.card-item {
-  /* position: absolute;
-  display: block;
+.card-columns {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
   transform: translateX(77px) translateY(0px);
-  transition: transform .2s; */
+  transition: transform .2s;
+  height: 236px;
+  width: 349px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
 }
 </style>
