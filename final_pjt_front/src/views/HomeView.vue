@@ -2,9 +2,13 @@
   <div class="home">
     <h1>이 페이지는 홈이면서, 스틸컷의 나열 페이지입니다.</h1>
     <h1>{{ colorChoice }}</h1>
-    <div v-for="(still, index) in stillBasedOnColor" :key="index">
-      {{ still }}
-    </div>
+    <v-card id="card-container" role="list">
+      <v-card-item class="card-item" role="listitem" v-for="(still, index) in stillBasedOnColor" :key="index">
+        <v-card-title>
+          <img :src="still.still_image" alt="">{{ still.still_image }}
+        </v-card-title>
+      </v-card-item>
+    </v-card>
     <StillCard></StillCard>
   </div>
 </template>
@@ -50,3 +54,19 @@ export default {
   },
 }
 </script>
+
+<style>
+#card-container {
+  /* position: relative;
+  display: block;
+  margin: 0 auto; */
+  background-color: aquamarine;
+}
+
+.card-item {
+  /* position: absolute;
+  display: block;
+  transform: translateX(77px) translateY(0px);
+  transition: transform .2s; */
+}
+</style>
