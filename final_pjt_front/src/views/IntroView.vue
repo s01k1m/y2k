@@ -11,20 +11,29 @@
             <div class="js-nametag">STEAL&nbsp;</div>
             <div class="js-nametag nametag2">&nbsp; STILL</div>
           </div>
-          <div class="after-nametag">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOUR SHOW</div>
+          <div class="after-nametag">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOUR
+            SHOW
+          </div>
         </div>
-        <div class="arrow bounce">
-            <router-link :to="{ name: 'home' }" class="fa fa-arrow-down fa-2x">Let's go!</router-link><br>
-            <button @click="selectColor('RED')">RED</button> | 
-            <button @click="selectColor('ORANGE')">ORANGE</button> | 
-            <button @click="selectColor('YELLOW')">YELLOW</button> | 
-            <button @click="selectColor('GREEN')">GREEN</button> | 
-            <button @click="selectColor('BLUE')">BLUE</button> | 
-            <button @click="selectColor('PINK')">PINK</button> | 
-            <button @click="selectColor('PURPLE')">PURPLE</button> | 
-            <button @click="selectColor('WHITE')">WHITE</button> | 
-            <button @click="selectColor('GREY')">GREY</button> | 
-            <button @click="selectColor('BLACK')">BLACK</button> | 
+        <div class="palette">
+          <div class="arrow bounce">
+            <router-link :to="{ name: 'home' }" class="fa fa-arrow-down fa-2x"
+              >Let's go!</router-link
+            ><br />
+          </div>
+          <div>
+            |&nbsp;&nbsp;<button @click="selectColor('RED')" class="RED">RED</button>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <button @click="selectColor('ORANGE')" class="ORANGE">ORANGE</button>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <button @click="selectColor('YELLOW')" class="YELLOW">YELLOW</button>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <button @click="selectColor('GREEN')" class="GREEN">GREEN</button>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <button @click="selectColor('BLUE')" class="BLUE">BLUE</button>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <button @click="selectColor('PINK')" class="PINK">PINK</button>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <button @click="selectColor('PURPLE')" class="PURPLE">PURPLE</button>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <button @click="selectColor('WHITE')" class="WHITE">WHITE</button>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <button @click="selectColor('GREY')" class="GREY">GREY</button>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <button @click="selectColor('BLACK')" class="BLACK">BLACK</button>&nbsp;&nbsp;|
+          </div>
         </div>
       </div>
     </div>
@@ -36,27 +45,28 @@ export default {
   name: "IntroView",
   methods: {
     selectColor(colorChoice) {
-      this.$router.push({name: 'home', params: { colorChoice: colorChoice}})
-    }
-  }
+      this.$router.push({ name: "home", params: { colorChoice: colorChoice } });
+    },
+  },
 };
 </script>
 <style scoped>
 
-.fa{
+/* Let's go 애니메이션 */
+.fa {
   color: rgb(255, 255, 255);
   text-decoration: none;
   z-index: 10000;
   display: inline-block;
-  }
+}
 
 .arrow {
   text-align: center;
-  margin: 8% 0;
+  margin: 8px 0;
   color: rgb(255, 255, 255);
   text-decoration: none;
   z-index: 10000;
-  display: inline-block
+  display: inline-block;
 }
 .bounce {
   -moz-animation: bounce 2s infinite;
@@ -65,7 +75,11 @@ export default {
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
   40% {
@@ -81,11 +95,11 @@ div.intro {
 }
 
 div.intro-bg {
+  width: 100%;
+  height: 100%;
   position: absolute;
   top: 0px;
   background-color: #2d2d37;
-  width: 100vw;
-  height: 100vh;
   z-index: 0;
   display: flex;
   justify-content: center;
@@ -102,19 +116,22 @@ div.intro-content {
 div.intro-name {
   position: relative;
   display: flex;
-    align-items: center;
+  align-items: center;
   justify-content: center;
 }
 
 div.intro-name > span {
-  font-size: 150px;
-  margin: 0
+  font-size: 180px;
+  padding-bottom: 0;
+  /* line-height: 200px; */
 }
 
 div.intro-text {
   font-size: 40px;
   display: flex;
-  justify-content:center;
+  justify-content: center;
+  padding-bottom: 70px;
+
 }
 
 img.intro-logo {
@@ -129,11 +146,9 @@ img.intro-logo {
   position: absolute;
 }
 .parent-nametag {
-
 }
 
-.after-nametag{
-
+.after-nametag {
 }
 
 .js-nametag:nth-child(1) {
@@ -163,15 +178,18 @@ img.intro-logo {
 }
 
 .ani3 {
-    animation: ani3 1s infinite linear alternate-reverse;
-    stroke-dasharray: 230px;
-    stroke-dashoffset: 230px;
+  animation: ani3 1s infinite linear alternate-reverse;
+  stroke-dasharray: 230px;
+  stroke-dashoffset: 230px;
 }
 @keyframes ani3 {
-    0%   {stroke-dashoffset: 230px;}
-    100% {stroke-dashoffset: 0;}
+  0% {
+    stroke-dashoffset: 230px;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
-
 
 img.to-home {
   position: absolute;
@@ -180,5 +198,64 @@ img.to-home {
   z-index: 1000;
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%)
     contrast(100%);
+}
+
+div.palette {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+
+/*             <button @click="selectColor('RED')" class="RED">RED</button> |
+            <button @click="selectColor('ORANGE')" class="ORANGE">ORANGE</button> |
+            <button @click="selectColor('YELLOW')" class="YELLOW">YELLOW</button> |
+            <button @click="selectColor('GREEN')" class="GREEN">GREEN</button> |
+            <button @click="selectColor('BLUE')" class="BLUE">BLUE</button> |
+            <button @click="selectColor('PINK')" class="PINK">PINK</button> |
+            <button @click="selectColor('PURPLE')" class="PURLE">PURPLE</button> |
+            <button @click="selectColor('WHITE')" class="WHITE">WHITE</button> |
+            <button @click="selectColor('GREY')" class="GREY">GREY</button> |
+            <button @click="selectColor('BLACK')" class="BLACK">BLACK</button> | */
+button.RED {
+  color: rgb(255, 0, 0);
+}
+
+button.ORANGE {
+  color: rgb(255, 128, 0);
+}
+
+button.YELLOW {
+  color: rgb(255, 255, 0);
+}
+
+button.GREEN{
+  color: rgb(0, 255, 0);
+}
+
+button.BLUE{
+  color:rgb(000,000,255);
+}
+
+button.PURPLE {
+  color: rgb(128, 0, 128);
+}
+
+button.PINK {
+  color: rgb(255, 0, 128);
+}
+
+button.WHITE{
+  color: rgb(255, 255, 255);
+}
+
+button.GREY{
+  color: rgb(128, 128, 128);
+}
+
+button.BLACK{
+  color: rgb(000, 000, 000);
 }
 </style>
