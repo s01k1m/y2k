@@ -3,13 +3,13 @@
     <img src="../assets/logo.svg" alt="logo" class="logo">
     <h1 class="header">STILLER에 오신 것을 환영합니다!</h1>
     <div class="signupform">
-      <label for="username">유저이름</label>
+      <label for="username">Username</label>
       <input type="text" id="username" v-model="username">
-      <label for="email">이메일</label>
+      <label for="email">Email</label>
       <input type="text" id="email" v-model="email">
-      <label for="password"> 비밀번호</label>
+      <label for="password"> Password</label>
       <input type="password" id="password1" v-model="password1">
-      <label for="password"> 비밀번호 확인</label>
+      <label for="password"> Confirm Password</label>
       <input type="password" id="password2" v-model="password2">
       <button type="submit" v-on:click="signup">Sign up</button>
 

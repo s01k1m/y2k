@@ -4,9 +4,9 @@
     <h1 class="header">STILLER에 오신 것을 환영합니다!</h1>
     <div class="loginform">
 
-      <label for="username">유저이름</label><br>
+      <label for="username">User name</label><br>
       <input type="text" id="username" v-model="username"><br>
-      <label for="password">비밀번호</label><br>
+      <label for="password">Password</label><br>
       <input type="password" id="password" v-model="password"><br>
       <button v-on:click="loginSubmit">Log in</button><br>
     </div>
