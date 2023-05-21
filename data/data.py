@@ -37,17 +37,20 @@ cnt = 1
 for page in movie_list:
     # print(f"#############{page}#############")
     # API의 URL 구성하기
-    url = movie_api.format_map(Default(movies=page, key=apikey))
+    url = movie_api.format_map(Default(page=page, key=apikey))
     # API에 요청을 보내 데이터 추출하기
     r = requests.get(url)  # json 형태의 데이터가 나온다.
     # 결과를 JSON 형식으로 변환하기
     raw_data = json.loads(r.text)['results']
 
     for d in raw_data:
-        movie = {"model" : "stills.moive", "pk": cnt, "fields" : {}}
+        movie = {"model" : "stills.movie", "pk": cnt, "fields" : {}}
         movie["fields"]['movie_id'] = d['id']
         movie["fields"]['movie_title'] = d['title']
-        movie["fields"]['movie_released_date'] = d['release_date']
+        try:
+            movie["fields"]['movie_released_date'] = d['release_date']
+        except:
+            continue
         movie["fields"]['overview'] = d['overview']
         movie["fields"]['genre'] = []
         for genre in d['genre_ids']:
