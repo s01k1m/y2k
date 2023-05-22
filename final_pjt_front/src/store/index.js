@@ -97,9 +97,18 @@ export default new Vuex.Store({
           Authorization: 'Token ' + token
         }
       }
-      //토큰 -> 멤버 정보 반환
-      //새로고침 --> 토큰만 갖고 멤버 정보 요청가능
-      axios
+      // 로그인 체크 안하고 싶은 URL
+      let except_url = new Array('http://localhost:8080/')
+      let current_url = window.location.href
+
+      if (except_url.includes(current_url)){
+        console.log("지금 페이지는", current_url, "로그인 검사를 안 합니다."
+        )
+        return 
+      } else {
+        //토큰 -> 멤버 정보 반환
+        //새로고침 --> 토큰만 갖고 멤버 정보 요청가능
+        axios
         .get("http://127.0.0.1:8000/accounts/user/", config)
         .then(response => {
           let userInfo = {
@@ -112,6 +121,7 @@ export default new Vuex.Store({
         .catch(() => {
           alert("사용자 정보를 가져오는데 실패 : 이메일과 비밀번호를 확인하세요.");
         });
-    }
+      }
+      }
   }
 });

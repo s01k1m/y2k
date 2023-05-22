@@ -121,7 +121,7 @@ div.intro-name {
 }
 
 div.intro-name > span {
-  font-size: 180px;
+  font-size: 150px;
   padding-bottom: 0;
   /* line-height: 200px; */
 }
@@ -146,9 +146,12 @@ img.intro-logo {
   position: absolute;
 }
 .parent-nametag {
+  display: inline-block;
+
 }
 
 .after-nametag {
+  margin-left: 20px;
 }
 
 .js-nametag:nth-child(1) {
