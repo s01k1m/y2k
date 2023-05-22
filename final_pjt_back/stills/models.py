@@ -12,37 +12,10 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.movie_title
-    # title = models.CharField(max_length=100)
-    # release_date = models.DateField()
-    # popularity = models.FloatField(blank=True, null=True)
-    # vote_count = models.IntegerField()
-    # vote_average = models.FloatField()
-    # overview = models.TextField()
-    # poster_path = models.CharField(max_length=200)
-    # genres = models.ManyToManyField(Genre, blank=True)
 
-# Create your models here.
 
 
 class Still(models.Model):
-    # RED    = 'RED'
-    # ORANGE = 'ORANGE'
-    # YELLOW = 'YELLOW'
-    # GREEN  = 'GREEN'
-    # BLUE   = 'BLUE'
-    # NAVY   = 'NAVY'
-    # PURPLE = 'PURPLE'
-    # GREY   = 'GREY'
-    # COLOR_IN_STILL_CHOCIES = [
-    #     (RED, 'RED'),
-    #     (ORANGE, 'ORANGE'),
-    #     (YELLOW, 'YELLOW'),
-    #     (GREEN, 'GREEN'),
-    #     (BLUE, 'BLUE'),
-    #     (NAVY, 'NAVY'),
-    #     (PURPLE, 'PURPLE'),
-    #     (GREY, 'GREY'),
-    # ]
 
     id = models.AutoField(primary_key=True)                            # pk 역할
     still_image = models.FileField(
