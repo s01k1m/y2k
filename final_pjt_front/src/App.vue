@@ -83,7 +83,7 @@ export default {
 }
 
 nav {
-  margin: 10px 0 30px 0;
+  margin: 10px 0 5px 0;
   padding: 0px;
   display: flex;
   align-items: center;

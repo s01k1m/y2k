@@ -8,7 +8,7 @@ import colorsys
 [1] (r, g, b)값 뽑아서 딕셔너리로 저장
 최댓값, 중간값, 최솟값을 키로 찾을 수 있도록
 '''
-ct = ColorThief("beige.jpg")
+ct = ColorThief("20230119580325.jpg")
 r, g, b = ct.get_color(quality=1)
 rgb = {'r': r, 'g': g, 'b': b}
 still_color = 'WHITE'
