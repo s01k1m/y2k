@@ -9,6 +9,7 @@ import LogIn from '../views/LogInView.vue'
 import SignUp from '../views/SignUpView.vue'
 import User from '../views/UserView.vue'
 import Collection from '../views/CollectionView.vue'
+import MovieDetail from '../components/MovieDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ const routes = [
     path: '/home',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/home/:stillId',
+    name: 'detail',
+    component: MovieDetail
   },
   {
     path: '/stills',

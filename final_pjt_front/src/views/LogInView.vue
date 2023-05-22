@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <img src="../assets/logo.svg" alt="logo" class="logo">
-    <h1 class="header">STILLER에 오신 것을 환영합니다!</h1>
+    <h1 class="header">Welcome To STILLER!</h1>
     <div class="loginform">
 
       <label for="username">User name</label><br>
@@ -12,7 +12,7 @@
     </div>
     <div class='router' >
       
-      <router-link :to="{ name: 'signup' }">아직 STILLER을 사용하고 있지 않으신가요? 가입하기</router-link>
+      <router-link :to="{ name: 'signup' }">Don't have an account? Sign Up!</router-link>
     </div>
       <!-- <button type="submit" v-on:click="Signin">Sign in</button> -->
   </div>

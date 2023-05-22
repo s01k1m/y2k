@@ -1,7 +1,7 @@
 <template>
   <div class="signup">
     <img src="../assets/logo.svg" alt="logo" class="logo">
-    <h1 class="header">STILLER에 오신 것을 환영합니다!</h1>
+    <h1 class="header">Welcome To STILLER!</h1>
     <div class="signupform">
       <label for="username">Username</label>
       <input type="text" id="username" v-model="username">

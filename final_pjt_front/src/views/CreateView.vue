@@ -1,6 +1,6 @@
 <template>
   <div class="create">
-    <h1>Create your STILL</h1>
+    <h1 id="header">Create your STILL</h1>
     <p>
       Pick your STILL Image file.<br />
       Then, search and pick a movie for it.<br />And submit!
@@ -156,6 +156,10 @@ export default {
 </script>
 
 <style scoped>
+#header {
+  margin-top: 50px;
+}
+
 #create {
   margin: 24px;
 }
