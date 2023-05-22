@@ -66,3 +66,14 @@ class Collection(models.Model):
         max_length=20)                                       # 콜렉션 이름
     stills = models.ManyToManyField(
         Still, related_name='stills')                 # 콜렉션에 담기는 여러 스틸컷
+
+class Comment(models.Model):
+    content = models.TextField()
+    still = models.ForeignKey(Still, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    parent  = models.ForeignKey(
+        'self', 
+        on_delete   =models.CASCADE, 
+        null        =True, 
+        related_name='replies',
+    )
