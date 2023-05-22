@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from rest_framework.response import Response
 from .serializers import StillSerializer, MovieSerializer
 from django.http import JsonResponse
+from rest_framework.decorators import api_view
 
 def still_list(request, colorChoice):
     print(colorChoice)
@@ -57,7 +58,8 @@ def searchMovie(request, search_query):
 
     # Serialize the Still queryset
     still_serializer = StillSerializer(stills, many=True)
-
+    print('?!??!?!!??!?!?!?!?!?')
+    print(still_serializer)
     return Response(still_serializer.data)
 
 def still_detail(request, stillId):
