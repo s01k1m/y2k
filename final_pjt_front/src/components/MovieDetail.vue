@@ -21,10 +21,9 @@
               {{ stillDetail.movie[0].overview }}
             </div>
           </div>
-          <div id="comments">Comments
-            <div v-for="(comment, index) in comment_list" :key="index">
-              <ParentComment :comment="comment" :child_comment_list="parseChildC(comment.id)"></ParentComment>
-            </div>
+          <div id="comments">Comments<br>
+            <ParentComment :still_id="stillDetail.still.id" :key="componentKey"></ParentComment>
+            <br>
             <div>
               댓: <input type="text" @keyup.enter="commentSubmit" v-model="comment_content">
             </div>
@@ -59,9 +58,8 @@ export default {
   data() {
     return {
       recommendStill: [],
-      comment_list: [],
-      child_comment_list: [],
-      comment_content: null, 
+      comment_content: null,
+      componentKey: 0,
     }
   }, 
   computed: {
@@ -88,14 +86,8 @@ export default {
   },
   created() {
     this.selectRecommend()
-    this.get_comment_list()
   },
   methods: {
-    parseChildC(parent){
-      return this.child_comment_list.filter((comment)=>{
-        return comment.parent === parent
-      })
-    },
     back() {
       this.$router.push({ name: 'home' })
     },
@@ -109,27 +101,7 @@ export default {
         console.error(error);
       });
     },
-    get_comment_list() {
-      axios({
-        method: 'get',
-        url: `http://127.0.0.1:8000/communities/${this.stillDetail.still.id}`
-      })
-      .then((response) => {
-        response.data.forEach(element => {
-          if (!element.parent){
-            this.comment_list.push(element)
-          } else {
-            this.child_comment_list.push(element)
-          }
-        });
-      
-      })
-      .catch((err) => {
-        console.log('err: ', err)
-      })
-    },
-    commentSubmit(e) {
-      e.preventDefault()
+    commentSubmit() {
       if (!this.comment_content) {
         alert('내용을 입력하세요.')
       } else {
@@ -150,7 +122,7 @@ export default {
         .then((response) => {
           console.log('댓글 작성 성공', response)
           this.comment_content = ''
-          this.get_comment_list()
+          this.componentKey += 1
         })
         .catch((err) => {
           console.log('err: ', err)
