@@ -1,3 +1,4 @@
+<!-- Signup Vue -->
 <template>
   <div class="signup">
     <img src="../assets/logo.svg" alt="logo" class="logo">
@@ -11,7 +12,7 @@
       <input type="password" id="password1" v-model="password1">
       <label for="password"> Confirm Password</label>
       <input type="password" id="password2" v-model="password2">
-      <button type="submit" v-on:click="signup">Sign up</button>
+      <v-btn type="submit" v-on:click="signup">Sign up</v-btn>
 
       <!-- <button type="submit" v-on:click="Signin">Sign in</button> -->
     </div>
@@ -102,5 +103,32 @@ button {
   color: rgb(255, 255, 255);
   width: 100%;
   margin: 30px 0px;
+}
+
+
+button:hover {
+  animation: shine 0.8s ease forwards;
+}
+
+button:active {
+  transform: translateY(0);
+  animation: shine 0.8s ease forwards;
+}
+
+
+/* 로그인 버튼 애니메이션 */
+@keyframes shine {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+    color: white;
+    background-color: black;
+    box-shadow: 0 4px 8px 0 rgb(172, 172, 172);
+  }
 }
 </style>

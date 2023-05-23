@@ -35,9 +35,11 @@ const routes = [
     component: Collection
   },
   {
-    path: '/search',
+    path: '/search/:searchInput',
     name: 'search',
-    component: Search
+    component: Search,
+    // true로 설정하면 데이터를 PROPS로 받는다.
+    props: true
   },
   {
     path: '/create',

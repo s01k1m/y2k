@@ -1,12 +1,13 @@
 <template>
   <div class="search">
-    <h1>SearchView</h1>
-    <p>{{ searchInput }}</p>
-    <SearchResult></SearchResult>
+    <h1>Stills of Movie "{{ getSearchInput }}" </h1>
+    <!-- 검색 결과 props로 보냄 -->
+    <SearchResult :ResultList="stillsResult"></SearchResult>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import SearchResult from '@/components/SearchResult.vue'
 
 export default {
@@ -14,9 +15,32 @@ export default {
   components: {
     SearchResult
   },
+  data() {
+    return {
+      stillsResult: [],
+    }
+  },
   computed: {
-    searchInput() {
-      return this.$route.query.searchInput
+    getSearchInput() {
+      return this.$route.params.searchInput
+    }
+  },
+  created() {
+    this.getSearchResult();
+  },
+  methods: {
+    getSearchResult() {
+      // params를 axios로 보내 api에서 데이터를 받아옴
+      console.log(`http://127.0.0.1:8000/stills/search/${this.$route.params.searchInput}/`)
+      axios
+        .get(`http://127.0.0.1:8000/stills/search/${this.$route.params.searchInput}/`)
+        .then((response) => {
+          this.stillsResult = response.data;
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   }
 }
