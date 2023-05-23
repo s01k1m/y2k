@@ -1,12 +1,12 @@
 <template>
   <div class="searchresult">
-    <!-- <h1>SearchResult</h1> -->
-    <div v-show="!stillBasedOnSearch.length" class="noContents">There's no Stills!
+
+    <div v-show="!ResultList.length" class="noContents">There's no Stills!
     <br>
     :'(
     </div>
     <div id="columns">
-      <figure v-for="(still, index) in stillBasedOnSearch" :key="index">
+      <figure v-for="(still, index) in ResultList" :key="index">
         <StillCard :still="still" :index="index"></StillCard>
       </figure>
     </div>
