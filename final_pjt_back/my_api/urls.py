@@ -24,5 +24,5 @@ urlpatterns = [
     path('stills/', include('stills.urls')),
     path('create/', include('posts.urls')),
     # TODO: 일단 stills app을 이용
-    # path('communities/', include('communities.urls')),
+    path('communities/', include('communities.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
