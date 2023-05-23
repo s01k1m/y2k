@@ -21,7 +21,14 @@
               {{ stillDetail.movie[0].overview }}
             </div>
           </div>
-          <div id="comments">Comments</div>
+          <div id="comments">Comments
+            <div v-for="(comment, index) in comment_list" :key="index">
+              <ParentComment :comment="comment" :child_comment_list="parseChildC(comment.id)"></ParentComment>
+            </div>
+            <div>
+              댓: <input type="text" @keyup.enter="commentSubmit" v-model="comment_content">
+            </div>
+          </div>
         </div>
       </div>
       <div class="card">
@@ -40,16 +47,21 @@
 
 <script>
 import StillCard from '@/components/StillCard.vue'
+import ParentComment from './ParentComment.vue'
 import axios from "axios"
 
 export default {
   name: 'MovieDetail',
   components: {
-    StillCard
+    StillCard,
+    ParentComment
   },
   data() {
     return {
-      recommendStill: []
+      recommendStill: [],
+      comment_list: [],
+      child_comment_list: [],
+      comment_content: null, 
     }
   }, 
   computed: {
@@ -76,8 +88,14 @@ export default {
   },
   created() {
     this.selectRecommend()
+    this.get_comment_list()
   },
   methods: {
+    parseChildC(parent){
+      return this.child_comment_list.filter((comment)=>{
+        return comment.parent === parent
+      })
+    },
     back() {
       this.$router.push({ name: 'home' })
     },
@@ -86,14 +104,62 @@ export default {
       .get(`http://127.0.0.1:8000/stills/recommend/${this.stillDetail.still.still_color}/`) // django에서 db에 저장된 해당 색상 stillcut 정보를 받아옴
       .then((response) => {
         this.recommendStill = response.data
-        console.log('this.recommendStill: ', this.recommendStill)
       })
       .catch((error) => {
         console.error(error);
       });
     },
+    get_comment_list() {
+      axios({
+        method: 'get',
+        url: `http://127.0.0.1:8000/communities/${this.stillDetail.still.id}`
+      })
+      .then((response) => {
+        response.data.forEach(element => {
+          if (!element.parent){
+            this.comment_list.push(element)
+          } else {
+            this.child_comment_list.push(element)
+          }
+        });
+      
+      })
+      .catch((err) => {
+        console.log('err: ', err)
+      })
+    },
+    commentSubmit(e) {
+      e.preventDefault()
+      if (!this.comment_content) {
+        alert('내용을 입력하세요.')
+      } else {
+        console.log('commentSubmit 진입!')
+        let token = localStorage.getItem("access_token")
+        console.log('token: ', token)
+        axios({
+          method: 'post',
+          url: `http://127.0.0.1:8000/communities/${this.stillDetail.still.id}/`,
+          data: {
+            'content': this.comment_content,
+            'parent': null,
+          },
+          headers: {
+              Authorization: "Token " + token,
+          },
+        })
+        .then((response) => {
+          console.log('댓글 작성 성공', response)
+          this.comment_content = ''
+          this.get_comment_list()
+        })
+        .catch((err) => {
+          console.log('err: ', err)
+        })
+      }
+    }
   }
 }
+
 </script>
 
 <style scoped>
@@ -185,4 +251,5 @@ img {
   border-radius: 20px;
   width:100%;
 }
+
 </style>
