@@ -153,4 +153,4 @@ MyPage에서 유저가 Collection에 Stills
 
 '''
 def create_collections(request):
-    
+    pass

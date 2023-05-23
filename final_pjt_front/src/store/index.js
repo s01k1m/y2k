@@ -16,6 +16,7 @@ export default new Vuex.Store({
   }, 
   mutations: {
     loginSuccess(state, payload) { //로그인 성공시,
+      console.log(this.userInfo)
       state.isLogin = true;
       state.isLoginError = false;
       state.userInfo = payload;
@@ -34,9 +35,7 @@ export default new Vuex.Store({
 
     /////////// signup & login -> 완료하면 토큰 발급 ////////
     SAVE_TOKEN(state, token) {
-      console.log('SAVE_TOKEN: ',token)
       state.token = token
-      console.log(state.token)
       router.push({ name: "home" }); // store/index.js $router 접근 불가 -> import를 해야함
     }
   },

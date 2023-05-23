@@ -8,8 +8,12 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+//Vuetify
 import vuetify from './plugins/vuetify'
 Vue.use(BootstrapVue)
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+
+
 
 Vue.config.productionTip = false
 
