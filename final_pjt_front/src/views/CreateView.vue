@@ -44,7 +44,7 @@
 
         <br />
       </div>
-      <button @click="sendImages" class="stillSubmit">submit</button>
+      <v-btn @click="sendImages" class="stillSubmit">submit</v-btn>
       <br />
       <br />
       <br />

@@ -6,6 +6,13 @@ from rest_framework.response import Response
 from .serializers import StillSerializer, MovieSerializer
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
+from accounts.models import User
+
+'''
+Home 에서 컬러별, all로 still 이미지 가져오는 API : 
+1. 색깔을 지정하면 그 색깔로 저장된 스틸을 반환합니다.
+2. ALL을 지정하면 서버에 저장된 모든 스틸을 반환합니다.
+'''
 
 def still_list(request, colorChoice):
     print(colorChoice)
@@ -23,6 +30,14 @@ def still_list(request, colorChoice):
         print('serializer.data : ', serializer.data)
         # 만약 일치하는 데이터가 없다면 []가 반환된다.
     return JsonResponse(serializer.data, safe=False)
+
+
+'''
+Home에서 Search용 API :
+1. 영화를 검색합니다.
+2. 제목에 해당 단어가 들어간 모든 영화를 찾고
+3. 그 영화로 작성된 스틸을 모두 반환합니다.
+'''
 
 @api_view(['GET'])
 def searchMovie(request, search_query):
@@ -61,6 +76,8 @@ def searchMovie(request, search_query):
     print('?!??!?!!??!?!?!?!?!?')
     print(still_serializer)
     return Response(still_serializer.data)
+
+
 
 def still_detail(request, stillId):
     print('still_detail 진입!!')
@@ -105,3 +122,35 @@ def recommend_still(request, color):
     print('serializer.data : ', serializer.data)
     # 만약 일치하는 데이터가 없다면 []가 반환된다.
     return JsonResponse(serializer.data, safe=False)
+
+
+'''
+MyPage에서 유저가 작성한 still을 반환하는 API:
+1. 유저가 작성한 모든 스틸을 반환합니다.
+'''
+@api_view(['GET'])
+def user_still(request, username):
+    print('♧'* 100)
+    print(username)
+    # username을 가지고 User 모델에서 user id를 가져온다
+    user = User.objects.get(username=username)
+    stills = Still.objects.filter(user=user.id)
+    serializer = StillSerializer(stills, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+'''
+MyPage에서 유저가 새로운 Collection을 생성하는 API:
+1. 유저는 NEW Collection을 제출합니다.
+2. 테이블에 Collections 을 생성합니다.
+
+'''
+
+
+
+'''
+MyPage에서 유저가 Collection에 Stills
+
+'''
+def create_collections(request):
+    

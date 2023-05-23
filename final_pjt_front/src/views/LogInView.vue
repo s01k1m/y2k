@@ -8,7 +8,7 @@
       <input type="text" id="username" v-model="username"><br>
       <label for="password">Password</label><br>
       <input type="password" id="password" v-model="password"><br>
-      <button v-on:click="loginSubmit">Log in</button><br>
+      <v-btn v-on:click="loginSubmit" class="login">Log in</v-btn><br>
     </div>
     <div class='router' >
       
@@ -113,7 +113,7 @@ h1 {
   margin: 0 auto;
   width: 100%;
   margin: 30px 0px;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
   font-size: 15px;
   font-weight: bold;
   border-radius: 20px;
@@ -121,8 +121,34 @@ h1 {
   border: 0px;
   height: 40px;
   vertical-align: middle;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
+.loginform > button:hover {
+  animation: shine 0.8s ease forwards;
+}
+
+.loginform > button:active {
+  transform: translateY(0);
+  animation: shine 0.8s ease forwards;
+}
+
+
+/* 로그인 버튼 애니메이션 */
+
+@keyframes shine {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+    color: white;
+    background-color: black;
+    box-shadow: 0 4px 8px 0 rgb(172, 172, 172);
+  }
+}
 
 </style>
