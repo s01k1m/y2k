@@ -34,8 +34,9 @@ export default {
   },
   methods: {
     search(e) {
-      console.log(e.target.value)
-      this.$router.push({name: 'search', query: { searchInput: this.searchInput}})
+
+      console.log('검색을 시작 : ',e.target.value)
+      this.$router.push({name: 'search', params: { searchInput: this.searchInput}})
       .then(() => {e.target.value = ''})
       .catch((err)=>{
         console.log(err)

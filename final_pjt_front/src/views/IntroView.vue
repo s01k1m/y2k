@@ -23,16 +23,16 @@
             ><br />
           </div>
           <div>
-            |&nbsp;&nbsp;<button @click="selectColor('RED')" class="RED">RED</button>&nbsp;&nbsp;|&nbsp;&nbsp;
-            <button @click="selectColor('ORANGE')" class="ORANGE">ORANGE</button>&nbsp;&nbsp;|&nbsp;&nbsp;
-            <button @click="selectColor('YELLOW')" class="YELLOW">YELLOW</button>&nbsp;&nbsp;|&nbsp;&nbsp;
-            <button @click="selectColor('GREEN')" class="GREEN">GREEN</button>&nbsp;&nbsp;|&nbsp;&nbsp;
-            <button @click="selectColor('BLUE')" class="BLUE">BLUE</button>&nbsp;&nbsp;|&nbsp;&nbsp;
-            <button @click="selectColor('PINK')" class="PINK">PINK</button>&nbsp;&nbsp;|&nbsp;&nbsp;
-            <button @click="selectColor('PURPLE')" class="PURPLE">PURPLE</button>&nbsp;&nbsp;|&nbsp;&nbsp;
-            <button @click="selectColor('WHITE')" class="WHITE">WHITE</button>&nbsp;&nbsp;|&nbsp;&nbsp;
-            <button @click="selectColor('GREY')" class="GREY">GREY</button>&nbsp;&nbsp;|&nbsp;&nbsp;
-            <button @click="selectColor('BLACK')" class="BLACK">BLACK</button>&nbsp;&nbsp;|
+            <button @click="selectColor('RED')" class="RED">RED</button>
+            <button @click="selectColor('ORANGE')" class="ORANGE">ORANGE</button>
+            <button @click="selectColor('YELLOW')" class="YELLOW">YELLOW</button>
+            <button @click="selectColor('GREEN')" class="GREEN">GREEN</button>
+            <button @click="selectColor('BLUE')" class="BLUE">BLUE</button>
+            <button @click="selectColor('PINK')" class="PINK">PINK</button>
+            <button @click="selectColor('PURPLE')" class="PURPLE">PURPLE</button>
+            <button @click="selectColor('WHITE')" class="WHITE">WHITE</button>
+            <button @click="selectColor('GREY')" class="GREY">GREY</button>
+            <button @click="selectColor('BLACK')" class="BLACK">BLACK</button>
           </div>
         </div>
       </div>
@@ -222,43 +222,109 @@ div.palette {
             <button @click="selectColor('WHITE')" class="WHITE">WHITE</button> |
             <button @click="selectColor('GREY')" class="GREY">GREY</button> |
             <button @click="selectColor('BLACK')" class="BLACK">BLACK</button> | */
+            button.ALL {
+  background-image: linear-gradient(to right, #ff9092,  #ffeb77, #8dccf0);
+  color: white;
+  padding: 8px 10px;
+  margin: 10px;
+  border-radius: 30px;
+}
+
 button.RED {
-  color: rgb(255, 0, 0);
+  background-color: #ff9092;
+  color: white;
+  padding: 8px 10px;
+  margin: 10px;
+  border-radius: 30px;
 }
 
 button.ORANGE {
-  color: rgb(255, 128, 0);
+  background-color: #ffb76e;
+  color: white;
+  padding: 8px 10px;
+  margin: 10px;
+  border-radius: 30px;
 }
 
 button.YELLOW {
-  color: rgb(255, 255, 0);
+  background-color: #ffeb77;
+  color: white;
+  padding: 8px 10px;
+  margin: 10px;
+  border-radius: 30px;
 }
 
 button.GREEN{
-  color: rgb(0, 255, 0);
+  background-color: #81e98f;
+  color: white;
+  padding: 8px 10px;
+  margin: 10px;
+  border-radius: 30px;
 }
 
 button.BLUE{
-  color:rgb(000,000,255);
+  background-color:#8dccf0;
+  color: white;
+  padding: 8px 10px;
+  margin: 10px;
+  border-radius: 30px;
 }
 
 button.PURPLE {
-  color: rgb(128, 0, 128);
+  background-color: #ad99e2;
+  color: white;
+  padding: 8px 10px;
+  margin: 10px;
+  border-radius: 30px;
 }
 
 button.PINK {
-  color: rgb(255, 0, 128);
+  background-color: #fc9ddf;
+  color: white;
+  padding: 8px 10px;
+  margin: 10px;
+  border-radius: 30px;
 }
 
 button.WHITE{
-  color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
+  padding: 8px 10px;
+  color: rgb(172, 172, 172);
+  margin: 10px;
+  border-radius: 30px;
+  border: solid 0.5px #e2e2e2;
 }
 
 button.GREY{
-  color: rgb(128, 128, 128);
+  background-color: rgb(172, 172, 172);
+  color: white;
+  padding: 8px 10px;
+  margin: 10px;
+  border-radius: 30px;
 }
 
 button.BLACK{
-  color: rgb(000, 000, 000);
+  background-color: rgb(0, 0, 0);
+  color: white;
+  padding: 8px 10px;
+  margin: 10px;
+  border-radius: 30px;
+}
+
+button:focus {
+  animation: shine 0.6s ease forwards;
+}
+
+@keyframes shine {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 8px 0 rgb(172, 172, 172);
+  }
 }
 </style>

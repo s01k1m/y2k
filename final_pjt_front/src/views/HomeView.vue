@@ -83,7 +83,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 #category {
   margin-bottom: 25px;
 }

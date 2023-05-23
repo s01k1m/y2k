@@ -83,7 +83,7 @@ export default {
     },
   },
   created() {
-    this.isLogined();
+    this.isLogined()
   },
   methods: {
     // 로그인이 되어있지 않으면 create에 접근할 수 없다.
@@ -104,22 +104,22 @@ export default {
       axios
         .get(`http://127.0.0.1:8000/create/getmovie/${encodedQuery}`)
         .then((response) => {
-          this.movies = response.data;
-          console.log("response.data", response.data);
+          this.movies = response.data
+          console.log("response.data", response.data)
         })
         .catch((error) => {
-          console.error(error);
-        });
+          console.error(error)
+        })
     },
     // 스틸컷의 영화정보를 검색하여 클릭합니다.
     confirm(e) {
-      console.log("클릭한 영화의 id : ", e.target.id);
-      this.movie_id = e.target.id;
-      console.log("폼으로 최종 제출될 영화의 id : ", this.movie_id);
+      console.log("클릭한 영화의 id : ", e.target.id)
+      this.movie_id = e.target.id
+      console.log("폼으로 최종 제출될 영화의 id : ", this.movie_id)
     },
     // 스틸컷을 최종 제출
     sendImages(e) {
-      e.preventDefault(); // 폼 새로 고침 방지
+      e.preventDefault() // 폼 새로 고침 방지
       if (!this.files) {
         alert(
           "스틸컷 이미지를 업로드 하세요. 업로드 전에는 제출할 수 없습니다."
@@ -130,9 +130,9 @@ export default {
         );
       } else {
         const form = new FormData();
-        form.append("still_image", this.files);
-        form.append("movie_id", this.movie_id);
-        let token = localStorage.getItem("access_token");
+        form.append("still_image", this.files)
+        form.append("movie_id", this.movie_id)
+        let token = localStorage.getItem("access_token")
         axios
           .post("http://127.0.0.1:8000/create/", form, {
             headers: {
@@ -225,7 +225,7 @@ form {
 
 button.stillSubmit {
   position: relative;
-  background: #000;
+  background: #ffffff;
   border: 0;
   padding: 14px 42px;
   border-radius: 30px;
@@ -234,7 +234,7 @@ button.stillSubmit {
   outline: none;
   font-weight: 400;
   font-size: 12px;
-  color: #fff;
+  color: #000000;
   letter-spacing: 0.2em;
   /* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); */
   /* transition: all 0.2s ease; */
@@ -242,40 +242,31 @@ button.stillSubmit {
 }
 
 button.stillSubmit:hover {
-  animation: shine 1.6s ease forwards;
-  color: black;
-  border: #000 solid;
-  transition: none; /* 추가된 부분 */
+  animation: shine 0.8s ease forwards;
+  color: rgb(255, 255, 255);
+
 }
 
 button.stillSubmit:active {
   transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  border: #000 solid;
-  color: black;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+  color: rgb(0, 0, 0);
   transition: none; /* 추가된 부분 */
-}
-
-.cntr {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 
 @keyframes shine {
   0% {
-    background: #000;
     transform: scale(1);
   }
   50% {
-    background: #fff;
     transform: scale(1);
   }
   100% {
-    background: #fff;
     transform: scale(1);
+    color: white;
+    background-color: black;
+    box-shadow: 0 4px 8px 0 rgb(172, 172, 172);
   }
 }
 
