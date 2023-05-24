@@ -25,15 +25,14 @@
             <div id="overview">
               {{ still_detail?.movie[0].overview }}
             </div>
+            <div id="stillDetailFooter">
+              <!-- <button @click="AddToCollection">Add To STILLs</button> -->
+              <button @click="deleteStill">DELETE</button>
+            </div>
           </div>
           <div id="comments" v-if="still_detail">
             <ParentComment :still_id="still_detail.still.id" :key="componentKey" @child-comment-submit="componentKeyChange"></ParentComment>
-            <br>  
           </div>
-        </div>
-        <div id="stillDetailFooter">
-          <!-- <button @click="AddToCollection">Add To STILLs</button> -->
-          <button @click="deleteStill">DELETE</button>
         </div>
       </div>
       <div class="card">
@@ -289,7 +288,7 @@ export default {
 }
 #container {
   max-width: 1280px;
-  min-height: 720px;
+  min-height: 1280px;
 }
 .card {
   width: 90%;
@@ -315,6 +314,8 @@ img {
 }
 #comments {
   width: 50%;
+  height: 500px;
+  /* overflow: auto; */
 }
 
 #titlebox {

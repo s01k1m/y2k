@@ -1,9 +1,7 @@
 <template>
   <div>
+    <p id="title">Comments</p>
     <div id="container">
-      <div id="commentfooter">
-        <input type="text" @keyup.enter="commentSubmit()" v-model="comment_content">
-      </div>
       <div v-for="(comment, index) in comment_list" :key="index">
         <div id="commentcontainer">
           <div id="commentbody">
@@ -21,6 +19,9 @@
         <ChildComment :comment_id="comment.id" :still_id="still_id" :child_comment_list="parseChildC(comment.id)" :key="componentKey" @child-comment-submit="emitToParent"></ChildComment>
         <hr>
       </div>
+    </div>
+    <div id="commentfooter">
+      <input id="commenttext" type="text" @keyup.enter="commentSubmit()" v-model="comment_content">
     </div>
   </div>
 </template>
@@ -134,12 +135,30 @@ export default {
 </script>
 
 <style scoped>
+#title {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 15px 10px 5px 10px;
+  text-align: left;
+}
 #container {
   display: flex;
   flex-direction: column;
   text-align: left;
   justify-content: space-between;
-  margin: 10px;
+  margin: 15px;
+  padding-right: 10px;
+  height: 350px;
+  overflow: auto;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 20px;
+  /* display: none; */
+}
+::-webkit-scrollbar-thumb {
+  background: #e9e9e9; /* 스크롤바 막대 색상 */
+  border-radius: 12px 12px 12px 12px;
 }
 #userid {
   font-weight: 600;
@@ -168,13 +187,19 @@ export default {
   border-radius: 24px;
   padding: 1px 2px;
   background-color: #e9e9e9;
-  display: inline;
-  padding: 0 20px;
-  flex: 3;
   text-align: left;
-  margin-bottom: 10px;
+  margin: 10px 15px 10px 10px;
+}
+#commenttext {
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px;
+  outline: none;
 }
 #deletebutton {
-  width: 20px;
+  margin-left: 10px;
+  border: solid 1px #e9e9e9;
+  border-radius: 8px;
+  padding: 1px 6px;
 }
 </style>

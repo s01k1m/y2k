@@ -1,9 +1,6 @@
 <template>
   <div>
     <div id="container">
-      <div id="commentfooter">
-        <input type="text" @keyup.enter="commentSubmit(comment_id)" v-model="comment_content">
-      </div>
       <div v-for="(comment, index) in child_comment_list" :key="index">
         <div id="commentcontainer">
           <div id="commentbody">
@@ -18,6 +15,9 @@
             <button id="deletebutton" @click="deleteComment(comment.id)">X</button>
           </div>
         </div>
+      </div>
+      <div id="commentfooter">
+        <input id="commenttext" type="text" @keyup.enter="commentSubmit(comment_id)" v-model="comment_content">
       </div>
     </div>
   </div>
@@ -95,7 +95,7 @@ export default {
   flex-direction: column;
   text-align: left;
   justify-content: space-between;
-  padding-left: 20px;
+  padding-left: 30px;
 }
 #userid {
   font-weight: 600;
@@ -117,20 +117,29 @@ export default {
 #commentbody {
   justify-content: space-between;
   flex-direction: row;
+  margin: 2px;
 }
 #commentfooter {
-  height: 48px;
+  height: 36px;
   border: solid 1px #e9e9e9;
   border-radius: 24px;
   padding: 1px 2px;
   background-color: white;
   display: inline;
-  padding: 0 20px;
-  flex: 3;
   text-align: left;
+  margin-top: 5px;
+}
+#commenttext {
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px;
+  outline: none;
 }
 #deletebutton {
-  width: 20px;
+  margin-left: 10px;
+  border: solid 1px #e9e9e9;
+  border-radius: 8px;
+  padding: 1px 6px;
 }
 #create {
   font-weight: 400;
