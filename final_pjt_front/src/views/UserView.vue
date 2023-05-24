@@ -19,7 +19,7 @@
         </v-col>
         <v-col cols="1" offset="7" class="mypage_nav" v-bind:class="{ visible: collectionsActive }" >
           <!-- 콜렉션을 추가하는 버튼 -->
-          <v-btn icon="mdi-plus" size="small" @click="dialog = true"></v-btn>
+          <v-btn icon="md:widgets" size="small" @click="dialog = true"></v-btn>
         </v-col>
       </v-row>
       <!-- mypage content -->
