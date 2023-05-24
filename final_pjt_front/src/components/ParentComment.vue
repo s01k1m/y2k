@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(comment, index) in comment_list" :key="index">
-      댓글: {{ comment.content }}
+      {{ comment.username }}: {{ comment.content }}
       <button @click="deleteComment(comment.id)">삭제</button>
       <ChildComment :comment_id="comment.id" :still_id="still_id" :child_comment_list="parseChildC(comment.id)" :key="componentKey" @child-comment-submit="emitToParent"></ChildComment>
     </div>
@@ -102,7 +102,17 @@ export default {
       .catch(() => {
         alert('본인이 작성한 댓글만 삭제할 수 있습니다.')
       })
-    }
+    },
+    // getCommentUserName(commentId) {
+    //   console.log('getCommentUserName 진입, commentId: ', commentId)
+    //   axios({
+    //     method: 'get',
+    //     url: `http://127.0.0.1:8000/communities/comments/${commentId}/`,
+    //   })
+    //   .then((response) => {
+    //     console.log('댓글 이름 가져오기!: ', response)
+    //   })
+    // }
   }
 }
 </script>

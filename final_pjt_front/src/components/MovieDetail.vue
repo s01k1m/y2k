@@ -26,7 +26,7 @@
               {{ still_detail?.movie[0].overview }}
             </div>
           </div>
-          <div id="comments" v-if="still_detail">Comments<br>
+          <div id="comments" v-if="still_detail">
             <ParentComment :still_id="still_detail.still.id" :key="componentKey" @child-comment-submit="componentKeyChange"></ParentComment>
             <br>  
           </div>
