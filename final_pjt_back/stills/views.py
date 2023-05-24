@@ -138,8 +138,8 @@ MyPage에서 유저가 새로운 Collection을 생성하는 API:
 def user_collections(request, username):
     if request.method == 'POST':
         print('&' * 30)
-        print('콜렉션 생성 시작')
         collection_name = request.data.get('collection_name')
+        print(collection_name)
         # stills 필드를 빈 리스트로 설정
         data = {
             'user': request.user.id,

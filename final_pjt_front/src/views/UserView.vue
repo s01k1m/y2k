@@ -1,4 +1,3 @@
-<!-- Mypage vue  -->
 <template>
   <div class="user">
     <h1>MyPage</h1>
@@ -10,10 +9,10 @@
         <!-- mypage nav button -->
         <v-row>
           <v-col cols="2" class="mypage_nav">
-            <v-btn @click="showStills">My stills</v-btn>
+            <v-btn @click="getUserStills">My stills</v-btn>
           </v-col>
           <v-col cols="2" class="mypage_nav">
-            <v-btn @click="showCollections">My collections</v-btn>
+            <v-btn @click="getUserCollections">My collections</v-btn>
           </v-col>
 
           <v-col
@@ -79,7 +78,7 @@
                   <v-btn
                     color="blue-darken-1"
                     variant="text"
-                    @click="dialog = false"
+                    @click="createUserCollection"
                   >
                     Save
                   </v-btn>
@@ -89,17 +88,24 @@
             <!-- 콜렉션을 추가하는 버튼 -->
           </v-col>
         </v-row>
-        <!-- mypage content -->
+
+        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% mypage content 내용 섹션 -->
         <v-row v-bind:class="{ visible: stillsActive }">
           <v-col class="mypage">
-            STillCARD
-            {{ collectionsResult }}
-            <StillCard> </StillCard>
+            <div v-show="!stillsResult.length" class="noContents">There's no Stills!
+            <br>
+            :'(
+            </div>
+            <div id="columns">
+              <figure v-for="(still, index) in stillsResult" :key="index">
+                <StillCard :still="still" :index="index"></StillCard>
+              </figure>
+            </div>
           </v-col>
         </v-row>
         <v-row class="mypage" v-bind:class="{ visible: collectionsActive }">
           <v-col>
-            collections
+            {{ collectionsResult}}
             <StillCard> </StillCard>
           </v-col>
         </v-row>
@@ -123,54 +129,94 @@ export default {
   },
   data() {
     return {
-      userInfo: this.$store.state.userinfo,
       stillsActive: false,
       collectionsActive: true,
-      stillsResult: [],
-      collectionsResult: [],
+      stillsResult: null,
+      collectionsResult: null,
       dialog: false,
       amount: "",
     };
   },
-  computed: {
-
+  created() {
+    this.getUserStills();
   },
   methods: {
     logout() {
       return this.$store.dispatch("logout");
     },
     showStills() {
-      (this.stillsActive = false), (this.collectionsActive = true);
+      this.stillsActive = false;
+      this.collectionsActive = true;
     },
     showCollections() {
-      (this.stillsActive = true), (this.collectionsActive = false);
+      this.stillsActive = true;
+      this.collectionsActive = false;
     },
     getUserStills() {
-      axios
-        .get(
-          `http://127.0.0.1:8000/stills/user/${this.userInfo.username}/stills`
-        )
-        .then((response) => {
-          this.collectionsResult = response.data;
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      this.stillsActive = false;
+      this.collectionsActive = true;
+      const username = this.$store.state.userInfo?.username;
+      console.log(username)
+      if (username) {
+        axios
+          .get(`http://127.0.0.1:8000/stills/user/${username}/stills`)
+          .then((response) => {
+            this.stillsResult = response.data;
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     },
     getUserCollections() {
-      axios
-        .get(
-          `http://127.0.0.1:8000/stills/user/${this.userInfo.username}/collections`
-        )
-        .then((response) => {
-          this.collectionsResult = response.data;
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      this.stillsActive = true;
+      this.collectionsActive = false;
+
+      const username = this.$store.state.userInfo?.username;
+      let token = localStorage.getItem('access_token')
+      if (username) {
+        axios
+          .get(`http://127.0.0.1:8000/stills/user/${username}/collections`, {
+            headers: {
+              Authorization: "Token " + token,
+            }})
+          .then((response) => {
+            this.collectionsResult = response.data;
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     },
+    createUserCollection() {
+      this.dialog = false
+      console.log(this.amount)
+      let collection_title = this.amount
+      this.$store.dispatch('getMemberInfo')
+      const username = this.$store.state.userInfo?.username;
+      let data = {
+        collection_name : collection_title
+      }
+      let token = localStorage.getItem('access_token')
+      console.log(username, data, token)
+      if (username) {
+        axios
+          .post(`http://127.0.0.1:8000/stills/user/${username}/collections/`, data, {
+            headers: {
+              Authorization: "Token " + token,
+            }})
+          .then((response) => {
+            this.collectionsResult = response.data;
+            console.log(response.data);
+            this.getUserCollections()
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    }
   },
 };
 </script>
