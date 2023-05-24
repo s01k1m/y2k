@@ -1,10 +1,25 @@
 <template>
   <div>
-    <div v-for="(comment, index) in child_comment_list" :key="index">
-      ㄴ {{ comment.username }}: {{ comment.content }}
-      <button @click="deleteComment(comment.id)">삭제</button>
+    <div id="container">
+      <div id="commentfooter">
+        <input type="text" @keyup.enter="commentSubmit(comment_id)" v-model="comment_content">
+      </div>
+      <div v-for="(comment, index) in child_comment_list" :key="index">
+        <div id="commentcontainer">
+          <div id="commentbody">
+            <span id="userid">
+              {{ comment.username }}  
+            </span>
+            <span id="content">
+              {{ comment.content }}
+            </span>
+          </div>
+          <div>
+            <button id="deletebutton" @click="deleteComment(comment.id)">X</button>
+          </div>
+        </div>
+      </div>
     </div>
-    대댓: <input type="text" @keyup.enter="commentSubmit(comment_id)" v-model="comment_content">
   </div>
 </template>
 
@@ -74,6 +89,51 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+#container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: space-between;
+  padding-left: 20px;
+}
+#userid {
+  font-weight: 600;
+  text-align: left;
+  font-size: 18px;
+  margin-right: 5px;
+}
+#content {
+  text-align: left;
+  font-weight: 400;
+  font-size: 16px;
+}
+#commentcontainer {
+  margin: 2px 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#commentbody {
+  justify-content: space-between;
+  flex-direction: row;
+}
+#commentfooter {
+  height: 48px;
+  border: solid 1px #e9e9e9;
+  border-radius: 24px;
+  padding: 1px 2px;
+  background-color: white;
+  display: inline;
+  padding: 0 20px;
+  flex: 3;
+  text-align: left;
+}
+#deletebutton {
+  width: 20px;
+}
+#create {
+  font-weight: 400;
+  font-size: 16px;
+}
 </style>

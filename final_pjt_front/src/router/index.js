@@ -11,8 +11,6 @@ import User from '../views/UserView.vue'
 import Collection from '../views/CollectionView.vue'
 import MovieDetail from '../components/MovieDetail.vue'
 
-const isLoggedIn = localStorage.getItem('access_token')
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -73,6 +71,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  const isLoggedIn = localStorage.getItem('access_token')
   console.log('from: ', from)
   console.log('to: ', to)
   // 로그인 여부
@@ -81,10 +80,18 @@ router.beforeEach((to, from, next) => {
   // 앞으로 이동할 페이지(to)가 로그인이 필요한 페이지인지 확인
   const isAuthRequired = authPages.includes(to.name)
 
-  if (isAuthRequired && !isLoggedIn) {
-    alert('로그인이 필요한 페이지입니다.')
-    next({ name: 'login'})
+  if (isAuthRequired) {
+    console.log('로그인 필요!')
+    if (isLoggedIn){
+      console.log('로그인 됨')
+      next()
+    }
+    else {
+      alert('로그인이 필요한 페이지입니다.')
+      next({ name: 'login'})
+    }
   } else {
+    console.log('로그인 불필요!')
     next()
   }
 })
