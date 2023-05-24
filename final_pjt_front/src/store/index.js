@@ -30,6 +30,8 @@ export default new Vuex.Store({
       state.isLogin = false;
       state.isLoginError = false;
       state.userInfo = null;
+      state.token = null;
+      localStorage.removeItem('access_token')
     },
 
     /////////// signup & login -> 완료하면 토큰 발급 ////////

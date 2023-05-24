@@ -144,6 +144,7 @@ export default {
           .then(function (response) {
             console.log(response);
             alert("정상적으로 제출되었습니다.");
+            this.$router.push({ name: 'home' })
           })
           .catch(function (response) {
             //handle error

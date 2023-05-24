@@ -14,7 +14,6 @@ class Movie(models.Model):
         return self.movie_title
 
 
-
 class Still(models.Model):
 
     id = models.AutoField(primary_key=True)                            # pk 역할
@@ -32,7 +31,7 @@ class Still(models.Model):
 
 class Collection(models.Model):
     # pk 역할
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)  # 콜렉션을 만든 유저
     collection_name = models.CharField(
