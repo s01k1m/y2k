@@ -99,8 +99,8 @@ export default {
         console.log('삭제 성공: ', response)
         this.$emit('child-comment-submit')
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(() => {
+        alert('본인이 작성한 댓글만 삭제할 수 있습니다.')
       })
     }
   }

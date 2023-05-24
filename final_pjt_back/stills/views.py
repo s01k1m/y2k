@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from .models import Still, Movie, Collection
+from accounts.models import User
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.http import JsonResponse
 from rest_framework.response import Response
 from .serializers import StillSerializer, MovieSerializer, CollectionSerializer, CollectionsStillSerializer
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
-from accounts.models import User
+from rest_framework import status
 
 '''
 Home 에서 컬러별, all로 still 이미지 가져오는 API : 
@@ -66,19 +67,29 @@ def searchMovie(request, search_query):
     still_serializer = StillSerializer(stills, many=True)
     return Response(still_serializer.data)
 
-
+@api_view(['GET', 'DELETE'])
 def still_detail(request, stillId):
     still = Still.objects.get(id=stillId)
-    still_serializer = StillSerializer(still)
-    # 영화 Id 받아오기
-    movieId = still_serializer.data['movie_id']
-    movie = Movie.objects.filter(id=movieId)
-    movie_serializer = MovieSerializer(movie, many=True)
-    context = {
-        'still': still_serializer.data,
-        'movie': movie_serializer.data,
-    }
-    return JsonResponse(context)
+    if request.method == 'GET':
+        still_serializer = StillSerializer(still)
+        # 영화 Id 받아오기
+        movieId = still_serializer.data['movie_id']
+        movie = Movie.objects.filter(id=movieId)
+        movie_serializer = MovieSerializer(movie, many=True)
+        context = {
+            'still': still_serializer.data,
+            'movie': movie_serializer.data,
+        }
+        return JsonResponse(context)
+    
+    if request.method == 'DELETE':
+        print('요청 유저: ', request.user, '작성 유저: ', still.user)
+        if request.user == still.user:
+            still.delete()
+            print('삭제 성공!')
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 def recommend_still(request, color):

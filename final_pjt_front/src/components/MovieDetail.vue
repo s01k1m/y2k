@@ -14,8 +14,13 @@
                 </span>
               </span>
             </div>
-            <div id="title">
-              {{ still_detail?.movie[0].movie_title }}
+            <div id="titlebox">
+              <span id="title">
+                {{ still_detail?.movie[0].movie_title }}
+              </span>
+              <span id="still_color">
+                # {{ still_detail?.still.still_color }}
+              </span>
             </div>
             <div id="overview">
               {{ still_detail?.movie[0].overview }}
@@ -23,8 +28,12 @@
           </div>
           <div id="comments" v-if="still_detail">Comments<br>
             <ParentComment :still_id="still_detail.still.id" :key="componentKey" @child-comment-submit="componentKeyChange"></ParentComment>
-          <br>
+            <br>  
           </div>
+        </div>
+        <div id="stillDetailFooter">
+          <button @click="AddToCollection">Add To STILLs</button>
+          <button @click="deleteStill">DELETE</button>
         </div>
       </div>
       <div class="card">
@@ -101,7 +110,7 @@ export default {
       this.componentKey += 1
     },
     back() {
-      this.$router.push({ name: 'home' })
+      this.$router.go(-1)
     },
     selectRecommend() {
       axios
@@ -112,6 +121,27 @@ export default {
       .catch((error) => {
         console.error(error);
       });
+    },
+    deleteStill() {
+      const stillId = this.$route.params.stillId
+      let token = localStorage.getItem("access_token")
+      axios({
+        method: 'delete',
+        url: `http://127.0.0.1:8000/stills/detail/${stillId}/`,
+        headers: {
+          Authorization: 'Token ' + token,
+        },
+      })
+      .then(() => {
+        alert('삭제되었습니다.')
+        this.$router.push({ name: 'home'})
+      })
+      .catch(() => {
+        alert('본인이 작성한 스틸컷만 삭제할 수 있습니다.')
+      })
+    },
+    AddToCollection() {
+      
     }
   }
 }
@@ -158,12 +188,21 @@ img {
 #comments {
   width: 50%;
 }
-#title {
+
+#titlebox {
   text-align: left;
+}
+
+#title {
   font-size: 28px;
   font-weight: 600;
   margin: 10px 15px;
 }
+
+#still_color {
+  font-style: italic;
+}
+
 #released_date {
   font-size: 16px;
   margin: 15px;
@@ -188,6 +227,11 @@ img {
   font-size: 28px;
   font-weight: 600;
   margin: 10px 15px;
+}
+
+#stillDetailFooter {
+  text-align: right;
+  margin: 0 10px;
 }
 
 #columns{
