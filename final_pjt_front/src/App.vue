@@ -15,7 +15,7 @@
         <router-link to="/user" v-if="isLogined" class="go" >MyPage</router-link>
       </div>
     </nav>
-    <router-view/>
+    <router-view :key="$route.fullPath"/>
   </div>
 </template>
 

@@ -38,7 +38,7 @@ export default new Vuex.Store({
       state.token = token
       console.log(state.token)
       router.push({ name: "home" }); // store/index.js $router 접근 불가 -> import를 해야함
-    }
+    },
   },
   actions : {
 
@@ -122,6 +122,6 @@ export default new Vuex.Store({
           alert("사용자 정보를 가져오는데 실패 : 이메일과 비밀번호를 확인하세요.");
         });
       }
-      }
+      },
   }
 });
