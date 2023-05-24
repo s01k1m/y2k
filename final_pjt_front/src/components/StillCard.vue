@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import axios from "axios"
 
 export default {
   name: 'StillCard',
@@ -14,16 +13,7 @@ export default {
   },
   methods: {    
     getDetail(stillId) {
-      console.log('getDetail 진입!!')
-      axios
-      .get(`http://127.0.0.1:8000/stills/detail/${stillId}/`)
-      .then((response) => {
-        console.log('detail view response: ', response)
-        this.$router.push({name: `detail`, params: {stillId:stillId, stillDetail:response.data}})
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+      this.$router.push({name: 'detail', params: {stillId:stillId}})
     }
   }
 }

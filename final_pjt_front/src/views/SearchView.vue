@@ -32,7 +32,6 @@ export default {
   methods: {
     getSearchResult() {
       // params를 axios로 보내 api에서 데이터를 받아옴
-      console.log(`http://127.0.0.1:8000/stills/search/${this.$route.params.searchInput}/`)
       axios
         .get(`http://127.0.0.1:8000/stills/search/${this.$route.params.searchInput}/`)
         .then((response) => {
