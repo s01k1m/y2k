@@ -32,7 +32,7 @@
           </div>
         </div>
         <div id="stillDetailFooter">
-          <button @click="AddToCollection">Add To STILLs</button>
+          <!-- <button @click="AddToCollection">Add To STILLs</button> -->
           <button @click="deleteStill">DELETE</button>
         </div>
       </div>
@@ -47,6 +47,74 @@
         </div>
       </div>
     </v-container>
+
+
+
+    <!-- %%%%%%%%%%%%%%%% 아래는 콜렉션 선택을 위한 모달 팝업창 코드 %%%%%%%%%%%%%%%%%%%% -->
+    <v-app>
+      <v-container>
+        <!-- mypage nav button -->
+        <v-row>
+
+            <!--  -->
+            <v-dialog v-model="dialog" persistent width="1100">
+              <template v-slot:activator="{ props }">
+                <v-btn
+                  small
+                  v-bind="props"
+                  @click="dialog = true"
+                  class="create_Collection"
+                  >Still to my collection</v-btn
+                >
+              </template>
+              <v-card>
+                <v-card-title>
+                  <span class="text-h5">Choose Collection</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col
+                      cols="12"
+                      sm="6"
+                    >
+                      <v-select
+                        v-model="pickedCollection"
+                        :items="collectionsList"
+                        label="Collection"
+                        item-value="id"
+                          return-object
+                        required
+                        @change="currentDataItems"
+                      ></v-select>
+                    </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="blue-darken-1"
+                    variant="text"
+                    @click="dialog = false"
+                  >
+                    Close
+                  </v-btn>
+                  <v-btn
+                    color="blue-darken-1"
+                    variant="text"
+                    @click="AddToCollection"
+                  >
+                    Save
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <!-- 콜렉션을 추가하는 버튼 -->
+
+        </v-row>
+      </v-container>
+    </v-app>
   </div>
 </template>
 
@@ -66,6 +134,14 @@ export default {
       recommendStill: [],
       componentKey: 0,
       still_detail: null,
+      dialog: false,
+      // 콜렉션 디비 오브젝트 데이터 (즉 원본)
+      collectionsResult: null,
+      // 이름 값만 배열로 가공한 데이터
+      collectionsList: null,
+      // 선택된 컬렉션 값
+      chapterIdFilter: null,
+      // 
     }
   }, 
   computed: {
@@ -91,6 +167,8 @@ export default {
   },
   created() {
     this.get_detail()
+    this.getUserCollections()
+
   },
   methods: {
     get_detail() {
@@ -140,9 +218,59 @@ export default {
         alert('본인이 작성한 스틸컷만 삭제할 수 있습니다.')
       })
     },
-    AddToCollection() {
+    // ◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶
+    currentDataItems () {
+      console.log('1',this.chapterIdFilter)
+
+      console.log('2', this.chapterIdFilter)
       
-    }
+    },
+    AddToCollection() {
+      //POST: http://127.0.0.1:8000/stills/append/1/1/ 
+      // const stillID = this.$route.params.stillId
+      // let token = localStorage.getItem('access_token')
+
+      // data = {
+      //   'collection_pk' : 1,
+      //   'still_pk': stillID,
+
+      // }
+
+      // axios(
+
+        
+        // ))
+        let str = this.chapterIdFilter
+        let words = str.split('-');
+        let pk =  document.write(words[0].trim());
+        console.log(this.pickedCollection, pk)
+      
+    },
+    getUserCollections() {
+      const username = this.$store.state.userInfo?.username;
+      let token = localStorage.getItem('access_token')
+      if (username) {
+        axios
+          .get(`http://127.0.0.1:8000/stills/user/${username}/collections`, {
+            headers: {
+              Authorization: "Token " + token,
+            }})
+          .then((response) => {
+            
+            // JavaScript에서 forEach 함수를 사용해 배열 순회하기
+            let myData = response.data
+            // objects 리스트에서 특정 KEY로의 value값들을 추출하기. ARRAY.prototype.map() , 
+            // map에 람다식을 이용하여 아주 간단하게 추출한 방법이다.
+            // 지금 index 값을 꼭 반환 받아야 하는 이유는 콜렉션 네임이 같으면 v-select에서 중복 처리 되면서 없어지기 때문이다.(중요)
+            myData = myData.map((row, index) => `${index} - ${row.collection_name}`)
+            this.collectionsList = myData
+            console.log(this.collectionsList)
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    },
   }
 }
 
