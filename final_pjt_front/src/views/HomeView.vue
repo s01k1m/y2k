@@ -47,7 +47,6 @@ export default {
     } else {
       this.colorChoice = this.colorChoiceFromIntro
     }
-    console.log('HomeView created 진입!')
     console.log(this.colorChoice)
 
     this.filterColor()
@@ -59,7 +58,6 @@ export default {
   },
   watch: {
     colorChoice() {
-      console.log('watch 진입!!')
       this.filterColor()
     }
   },
@@ -73,7 +71,6 @@ export default {
       .get(`http://127.0.0.1:8000/stills/${this.colorChoice}/`) // django에서 db에 저장된 해당 색상 stillcut 정보를 받아옴
       .then((response) => {
         this.stillBasedOnColor = response.data
-        console.log('this.stillBasedOnColor: ', this.stillBasedOnColor)
       })
       .catch((error) => {
         console.error(error);

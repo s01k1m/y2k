@@ -2,12 +2,12 @@
   <div class="moviedetail">
     <v-container id="container">
       <div class="card">
-        <img :src="'http://127.0.0.1:8000' + stillDetail.still.still_image" :alt="stillDetail.still.still_image">
+        <img :src="'http://127.0.0.1:8000' + still_detail?.still.still_image" :alt="still_detail?.still.still_image">
         <button id="exit" @click="back">X</button>
         <div id="cardDetail">
           <div id="movie">
             <div id="released_date">
-              {{ stillDetail.movie[0].movie_released_date }} released
+              {{ still_detail?.movie[0].movie_released_date }} released
               <span id="genre">
                 <span v-for="(name, index) in genre" :key="index">
                   {{ name }}
@@ -15,18 +15,15 @@
               </span>
             </div>
             <div id="title">
-              {{ stillDetail.movie[0].movie_title }}
+              {{ still_detail?.movie[0].movie_title }}
             </div>
             <div id="overview">
-              {{ stillDetail.movie[0].overview }}
+              {{ still_detail?.movie[0].overview }}
             </div>
           </div>
-          <div id="comments">Comments<br>
-            <ParentComment :still_id="stillDetail.still.id" :key="componentKey"></ParentComment>
-            <br>
-            <div>
-              댓: <input type="text" @keyup.enter="commentSubmit" v-model="comment_content">
-            </div>
+          <div id="comments" v-if="still_detail">Comments<br>
+            <ParentComment :still_id="still_detail.still.id" :key="componentKey" @child-comment-submit="componentKeyChange"></ParentComment>
+          <br>
           </div>
         </div>
       </div>
@@ -58,26 +55,25 @@ export default {
   data() {
     return {
       recommendStill: [],
-      comment_content: null,
       componentKey: 0,
+      still_detail: null,
     }
   }, 
   computed: {
-    stillDetail() {
-      return this.$route.params.stillDetail
-    },
     genre() {
       let newGenres = []
-      let newStr = ''
-      for (const element of this.stillDetail.movie[0].genre) {
-        if (element === '[' || element === ' ' || element === '\'') {
-          continue
-        } else {
-          if (element === ',' || element === ']') {
-            newGenres.push(newStr)
-            newStr = ''
+      if (this.still_detail){      
+        let newStr = ''
+        for (const element of this.still_detail.movie[0].genre) {
+          if (element === '[' || element === ' ' || element === '\'') {
+            continue
           } else {
-            newStr += element
+            if (element === ',' || element === ']') {
+              newGenres.push(newStr)
+              newStr = ''
+            } else {
+              newStr += element
+            }
           }
         }
       }
@@ -85,49 +81,37 @@ export default {
     },
   },
   created() {
-    this.selectRecommend()
+    this.get_detail()
   },
   methods: {
+    get_detail() {
+      const stillId = this.$route.params.stillId
+      
+      axios
+      .get(`http://127.0.0.1:8000/stills/detail/${stillId}/`)
+      .then((response) => {
+        this.still_detail = response.data
+        this.selectRecommend()
+      })
+      .catch((err) => {
+        console.error('새로고침 에러!', err)
+      })
+    },
+    componentKeyChange() {
+      this.componentKey += 1
+    },
     back() {
       this.$router.push({ name: 'home' })
     },
     selectRecommend() {
       axios
-      .get(`http://127.0.0.1:8000/stills/recommend/${this.stillDetail.still.still_color}/`) // django에서 db에 저장된 해당 색상 stillcut 정보를 받아옴
+      .get(`http://127.0.0.1:8000/stills/recommend/${this.still_detail.still.still_color}/`) // django에서 db에 저장된 해당 색상 stillcut 정보를 받아옴
       .then((response) => {
         this.recommendStill = response.data
       })
       .catch((error) => {
         console.error(error);
       });
-    },
-    commentSubmit() {
-      if (!this.comment_content) {
-        alert('내용을 입력하세요.')
-      } else {
-        console.log('commentSubmit 진입!')
-        let token = localStorage.getItem("access_token")
-        console.log('token: ', token)
-        axios({
-          method: 'post',
-          url: `http://127.0.0.1:8000/communities/${this.stillDetail.still.id}/`,
-          data: {
-            'content': this.comment_content,
-            'parent': null,
-          },
-          headers: {
-              Authorization: "Token " + token,
-          },
-        })
-        .then((response) => {
-          console.log('댓글 작성 성공', response)
-          this.comment_content = ''
-          this.componentKey += 1
-        })
-        .catch((err) => {
-          console.log('err: ', err)
-        })
-      }
     }
   }
 }

@@ -78,31 +78,7 @@ export default {
     // GetMovieData,
   },
   props: ["movie"],
-  computed: {
-    isLogin() {
-      return localStorage.getItem("access_token");
-    },
-  },
-  created() {
-    this.isLogined()
-  },
   methods: {
-    load () {
-        this.loading = true
-        setTimeout(() => (this.loading = false), 3000)
-      },
-    // 로그인이 되어있지 않으면 create에 접근할 수 없다.
-    isLogined() {
-      if (!this.isLogin) {
-        console.log("if");
-        alert("로그인이 필요합니다.");
-        this.$router.push({ name: "login" });
-      } else {
-        if (!this.$store.state.token) {
-          this.$store.dispatch("getMemberInfo");
-        }
-      }
-    },
     // 스틸컷에 해당하는 영화정보 가져오기
     getMovies() {
       const encodedQuery = encodeURIComponent(this.searchQuery);
@@ -110,7 +86,6 @@ export default {
         .get(`http://127.0.0.1:8000/create/getmovie/${encodedQuery}`)
         .then((response) => {
           this.movies = response.data
-          console.log("response.data", response.data)
         })
         .catch((error) => {
           console.error(error)
@@ -147,14 +122,14 @@ export default {
               Authorization: "Token " + token,
             },
           })
-          .then(function (response) {
-            console.log(response);
+          .then((response) => {
+            console.log('제출 성공!', response);
             alert("정상적으로 제출되었습니다.");
-            this.$router.push({ name: 'home' })
+            this.$router.push({name: 'home'})
           })
-          .catch(function (response) {
+          .catch(function (err) {
             //handle error
-            console.log(response);
+            console.log(err);
           });
       }
     },
