@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(comment, index) in child_comment_list" :key="index">
-      ㄴ {{ comment.content }}
+      ㄴ {{ comment.username }}: {{ comment.content }}
       <button @click="deleteComment(comment.id)">삭제</button>
     </div>
     대댓: <input type="text" @keyup.enter="commentSubmit(comment_id)" v-model="comment_content">

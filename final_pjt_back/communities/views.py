@@ -25,7 +25,6 @@ def comment_create_or_view(request, still_id):
             'user': request.user.id,
         }
         if parent_pk:
-            # parent_comment = Comment.objects.get(pk=parent_pk)
             data['parent'] = parent_pk
         serializer = CommentSerializer(data=data)
         if serializer.is_valid():
