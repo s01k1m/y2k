@@ -103,10 +103,11 @@
             </div>
           </v-col>
         </v-row>
-        <v-row class="mypage" v-bind:class="{ visible: collectionsActive }">
+        <v-row class="mypage" v-bind:class="{ visible: collectionsActive }"> {{ collectionsResult }}
           <v-col>
-            {{ collectionsResult}}
-            <StillCard> </StillCard>
+            <div v-for="(card, index) in collectionsResult" :key="index">
+            <UserCollection :card="card"></UserCollection>
+            </div>
           </v-col>
         </v-row>
       </v-container>
@@ -138,6 +139,9 @@ export default {
     };
   },
   created() {
+    this.$store.dispatch('getMemberInfo')
+  },
+  mounted() {
     this.getUserStills();
   },
   methods: {
@@ -156,7 +160,7 @@ export default {
       this.stillsActive = false;
       this.collectionsActive = true;
       const username = this.$store.state.userInfo?.username;
-      console.log(username)
+      console.log('username:' , username)
       if (username) {
         axios
           .get(`http://127.0.0.1:8000/stills/user/${username}/stills`)

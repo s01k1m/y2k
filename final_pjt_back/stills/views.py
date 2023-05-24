@@ -180,6 +180,53 @@ def user_collections(request, username):
 '''
 MyPage에서 유저가 Collection에 Stills 저장하는 API:
 1. still상세페이지에서 pk, collections 선택 후 넘김
-2. 
+2. post
 
 '''
+
+
+# @api_view(['GET', 'POST'])
+# def append_to_collection(request, collections_pk, still_pk):
+#     if request.method == 'POST':
+#         print('▶' * 50, '스틸 콜렉션에 추가하기')
+#         collection_pk = request.data.get('collection_pk')
+#         print(collection_pk)
+#         # [1] 먼저, Collection.objects.get(pk=collection_id)를 사용하여 기존의 collections 객체를 가져옵니다
+#         collection = Collection.objects.get(id=collection_pk)
+
+#         still = Still.objects.get(id=still_pk)
+#         still_data = collection.stills
+
+#         # still_data에 still 받은 정보를 추가해야함
+
+#         # [2] CollectionSerializer를 사용하여 stills 데이터 유효성 검사 및 저장
+#         serializer = StillSerializer(data=still_data, many=True)
+#         serializer.is_valid(raise_exception=True)
+#         stills = serializer.save()
+#         # still_data.push(still)
+        
+#         # # 기존의 collection에 stills 추가
+#         collection.stills.set(stills)
+#         # # CollectionsStillSerializer를 사용하여 결과 시리얼라이즈
+#         result_serializer = CollectionsStillSerializer(collection)
+#         # # result_serializer.data는 collection 객체와 추가된 stills를 포함한 결과 데이터를 반환합니다.
+#         if result_serializer.is_valid():
+#             result_serializer.save()
+#             return JsonResponse(result_serializer.data, status=201)
+#         return JsonResponse(result_serializer.errors, status=400)
+#     return Response({'message': 'appending a still to collection is fail'}, status=201)
+
+@api_view(['POST'])
+def add_still_to_collection(request, collection_pk, still_pk):
+    # [1] collection_pk
+    collection_pk = request.data.get('collection_pk')
+    # [1] still_pk
+    still_pk = request.data.get('still_pk')
+    print(collection_pk, still_pk)
+    collection = get_object_or_404(Collection, pk=collection_pk)
+    still = get_object_or_404(Still, pk=still_pk)
+
+    # 중개 테이블에 연결
+    collection.stills.add(still)
+
+    return Response({'message': 'Still added to the collection successfully.'})
