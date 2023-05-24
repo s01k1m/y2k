@@ -15,6 +15,8 @@ urlpatterns = [
     # user MyPage create collection
     path('user/<str:username>/collections/',
          views.user_collections, name='collection'),
-    # user MyPage get all collections
+    # detail page append still to collection
+    path('append/<int:collection_pk>/<int:still_pk>/',
+         views.add_still_to_collection, name='appendStill'),
 
 ]

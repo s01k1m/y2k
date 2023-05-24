@@ -34,7 +34,6 @@ class CollectionSerializer(serializers.ModelSerializer):
 class CollectionsStillSerializer(serializers.ModelSerializer):
     # Stills 데이터가 없어도 collection을 가져오려면 allow_null=True
     stills = StillSerializer(many=True, allow_null=True)
-
     class Meta:
         model = Collection
         fields = ('id', 'user', 'collection_name', 'stills')
