@@ -13,7 +13,8 @@ urlpatterns = [
     # user MyPage still
     path('user/<str:username>/stills/', views.user_still, name='user_still'),
     # user MyPage create collection
-    path('user/<str:username>/createcollection/', views.create_collections, name='create_collection'),
+    path('user/<str:username>/collections/',
+         views.user_collections, name='collection'),
     # user MyPage get all collections
-    
+
 ]
