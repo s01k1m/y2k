@@ -14,7 +14,6 @@ class Movie(models.Model):
         return self.movie_title
 
 
-
 class Still(models.Model):
 
     id = models.AutoField(primary_key=True)                            # pk 역할
@@ -32,21 +31,10 @@ class Still(models.Model):
 
 class Collection(models.Model):
     # pk 역할
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)  # 콜렉션을 만든 유저
     collection_name = models.CharField(
         max_length=20)                                       # 콜렉션 이름
     stills = models.ManyToManyField(
         Still, related_name='stills')                 # 콜렉션에 담기는 여러 스틸컷
-
-class Comment(models.Model):
-    content = models.TextField()
-    still = models.ForeignKey(Still, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    parent  = models.ForeignKey(
-        'self', 
-        on_delete   =models.CASCADE, 
-        null        =True, 
-        related_name='replies',
-    )

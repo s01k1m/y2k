@@ -2,6 +2,7 @@
   <div class="search">
     <h1>Stills of Movie "{{ getSearchInput }}" </h1>
     <!-- 검색 결과 props로 보냄 -->
+    {{stillsResult}}
     <SearchResult :ResultList="stillsResult"></SearchResult>
   </div>
 </template>
