@@ -5,7 +5,7 @@
       Pick your STILL Image file.<br />
       Then, search and pick a movie for it.<br />And submit!
     </p>
-
+getMoviesmo
     <form>
       <v-file-input
         v-model="files"
@@ -44,7 +44,7 @@
 
         <br />
       </div>
-      <v-btn @click="sendImages" class="stillSubmit">submit</v-btn>
+      <v-btn @click="sendImages" :loading="loading" class="stillSubmit">submit</v-btn>
       <br />
       <br />
       <br />
@@ -71,6 +71,7 @@ export default {
       searchQuery: "",
       movies: [],
       movie_id: "",
+      loading: false,
     };
   },
   component: {
@@ -99,6 +100,7 @@ export default {
     // 스틸컷을 최종 제출
     sendImages(e) {
       e.preventDefault() // 폼 새로 고침 방지
+      this.load()
       if (!this.files) {
         alert(
           "스틸컷 이미지를 업로드 하세요. 업로드 전에는 제출할 수 없습니다."

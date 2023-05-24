@@ -92,6 +92,7 @@ export default new Vuex.Store({
     
     /////////사용자 정보 가져오기/////////
     getMemberInfo({ commit }) {
+      console.log('getMeberInfo')
       //로컬 스토리지에 저장된 토큰을 저장한다.
       let token = localStorage.getItem("access_token")
       let config = {
