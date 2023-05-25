@@ -178,7 +178,7 @@ def user_collections(request, username):
         return Response(serializer.data, status=201)
 
 @api_view(['DELETE'])
-def collection_view(request, username, collection_pk):
+def collection_delete(request, username, collection_pk):
     if request.method == 'DELETE':
         # user가 가진 콜렉션 삭제하기
         print(collection_pk, '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
