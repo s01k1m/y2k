@@ -17,12 +17,8 @@
           </div>
         </div>
         <div class="palette">
-          <div class="arrow bounce">
-            <router-link :to="{ name: 'home' }" class="fa fa-arrow-down fa-2x"
-              >Let's go!</router-link
-            ><br />
-          </div>
           <div>
+            <button @click="selectColor('ALL')" class="ALL">ALL</button>
             <button @click="selectColor('RED')" class="RED">RED</button>
             <button @click="selectColor('ORANGE')" class="ORANGE">ORANGE</button>
             <button @click="selectColor('YELLOW')" class="YELLOW">YELLOW</button>
@@ -60,20 +56,6 @@ export default {
   display: inline-block;
 }
 
-.arrow {
-  text-align: center;
-  margin: 8px 0;
-  color: rgb(255, 255, 255);
-  text-decoration: none;
-  z-index: 10000;
-  display: inline-block;
-}
-.bounce {
-  -moz-animation: bounce 2s infinite;
-  -webkit-animation: bounce 2s infinite;
-  animation: bounce 2s infinite;
-}
-
 @keyframes bounce {
   0%,
   20%,
@@ -99,7 +81,7 @@ div.intro-bg {
   height: 100%;
   position: absolute;
   top: 0px;
-  background-color: #2d2d37;
+  background-color: rgb(105, 105, 105);
   z-index: 0;
   display: flex;
   justify-content: center;
@@ -142,7 +124,7 @@ img.intro-logo {
 }
 
 .js-nametag {
-  font-weight: 900;
+  /* font-weight: 900; */
   position: absolute;
 }
 .parent-nametag {
@@ -210,19 +192,7 @@ div.palette {
   flex-direction: column;
 }
 
-
-
-/*             <button @click="selectColor('RED')" class="RED">RED</button> |
-            <button @click="selectColor('ORANGE')" class="ORANGE">ORANGE</button> |
-            <button @click="selectColor('YELLOW')" class="YELLOW">YELLOW</button> |
-            <button @click="selectColor('GREEN')" class="GREEN">GREEN</button> |
-            <button @click="selectColor('BLUE')" class="BLUE">BLUE</button> |
-            <button @click="selectColor('PINK')" class="PINK">PINK</button> |
-            <button @click="selectColor('PURPLE')" class="PURLE">PURPLE</button> |
-            <button @click="selectColor('WHITE')" class="WHITE">WHITE</button> |
-            <button @click="selectColor('GREY')" class="GREY">GREY</button> |
-            <button @click="selectColor('BLACK')" class="BLACK">BLACK</button> | */
-            button.ALL {
+button.ALL {
   background-image: linear-gradient(to right, #ff9092,  #ffeb77, #8dccf0);
   color: white;
   padding: 8px 10px;
