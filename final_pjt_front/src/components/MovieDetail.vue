@@ -8,7 +8,7 @@
                 <button id="exit" @click="back">X</button>
             </v-col>
             <v-row>
-            <v-col cols='6' id='movie-detail'>
+            <v-col cols='6' id='movie-detail' style="position: relative;">
                 <div id="released_date">
                     {{ still_detail?.movie[0].movie_released_date }} released
                     <span id="genre">
@@ -28,7 +28,9 @@
                 <div id="overview">
                     {{ still_detail?.movie[0].overview }}
                 </div>
+
                 <v-col id="footer" cols='12' align="right">
+                    
                     <v-dialog v-model="dialog" persistent width="1100">
                         <template v-slot:activator="{ props }">
                             <v-btn id="stillButton" small v-bind="props" @click="getUserCollections()" class="Collection">Still to my collection</v-btn>
@@ -399,10 +401,12 @@ img {
   width: 100%;
 } 
 #footer {
-  margin: 15px 0;
+  margin: 10px -30px;
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-end;
+  position: absolute;
+  bottom: 20px;
 }
 #stillButton {
   margin: 3px 15px;
