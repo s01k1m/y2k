@@ -28,17 +28,10 @@
                 <div id="overview">
                     {{ still_detail?.movie[0].overview }}
                 </div>
-            </v-col>
-            <v-col cols='6' id="comments" v-if="still_detail">
-                <v-col col='12'>
-
-                    <ParentComment :still_id="still_detail.still.id" :key="componentKey" @child-comment-submit="componentKeyChange"></ParentComment>
-                    <br />
-                </v-col>
-                <v-col cols='12' align="right">
+                <v-col id="footer" cols='12' align="right">
                     <v-dialog v-model="dialog" persistent width="1100">
                         <template v-slot:activator="{ props }">
-                            <v-btn small v-bind="props" @click="getUserCollections()" class="Collection">Still to my collection</v-btn>
+                            <v-btn id="stillButton" small v-bind="props" @click="getUserCollections()" class="Collection">Still to my collection</v-btn>
                         </template>
                         <v-card>
                             <v-card-title>
@@ -65,7 +58,12 @@
                         </v-card>
                     </v-dialog>
                     <!-- 게시글 삭제 -->
-                    <v-btn small @click="deleteStill">DELETE</v-btn>
+                    <v-btn id="deleteButton" small @click="deleteStill">DELETE</v-btn>
+                </v-col>
+            </v-col>
+            <v-col cols='6' id="comments" v-if="still_detail">
+                <v-col col='12'>
+                    <ParentComment :still_id="still_detail.still.id" :key="componentKey" @child-comment-submit="componentKeyChange"></ParentComment>
                 </v-col>
             </v-col>
             </v-row>
@@ -273,28 +271,34 @@ export default {
   border-radius: 10px;
 }
 */
-
+div#comments.col.col-6 {
+  padding: 0;
+}
 
 #container {
     /* max-width: 1280px;
   min-height: 720px; */
 }
-
-.card {
+div.row {
+  margin: 0;
+}
+div.row.card {
     /* width: 90%;
   height: 90%;
   position: relative; */
-    margin: auto;
+    margin: 0 auto 20px auto;
     border-radius: 10px;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgb(172, 172, 172);
 }
 
+div.col.col-12 {
+  padding: 0;
+}
 
 img {
-    width: 100%;
+  width: 100%;
   border-radius: 10px 10px 0 0;
-
 }
     /*
 #cardDetail {
@@ -366,10 +370,21 @@ img {
   margin: 0;
   margin-bottom: 15px;
   border-radius: 20px;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);;
 }
 #columns figure img {
   border-radius: 20px;
   width: 100%;
 } 
+#footer {
+  margin: 15px 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+}
+#stillButton {
+  margin: 3px 15px;
+}
+#deleteButton {
+  margin: 3px 15px;
+}
 </style>

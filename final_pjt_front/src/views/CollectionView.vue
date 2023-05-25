@@ -1,6 +1,5 @@
 <template>
-  <div class="create">
-    <h1>다른 사람들과 콜렉션을 공유하는 페이지입니다.</h1>
+  <div>
     <div id="columns">
       <figure v-for="(collection, index) in collectionList" :key="index">
         <CollectionCard :collection="collection"></CollectionCard>
@@ -29,11 +28,11 @@ export default {
     get_collections() {
       axios({
         method: 'get',
-        url: 'http://127.0.0.1:8000/stills/collections/'
+        url: 'http://127.0.0.1:8000/stills/collections/all/',
       })
       .then((response) => {
         this.collectionList = response.data
-        console.log('콜렉션 불러오기 성공!')
+        console.log('콜렉션 불러오기 성공!', response)
       })
       .catch((err) => {
         console.log(err)
@@ -43,7 +42,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #columns{
     column-width:350px;
     column-gap: 15px;
@@ -51,16 +50,16 @@ export default {
 }
 #columns figure{
   display: inline-block;
-  /* border:1px solid rgba(0,0,0,0.2); */
-  margin:0;
+  margin: 20px;
   margin-bottom: 15px;
-  border-radius: 20px;
-  /* box-shadow: 2px 2px 5px rgba(0,0,0,0.5);; */
+  border-radius: 8px;
+  width: 350px;
+  height: 300px;
 }
-#columns figure img{
+/* #columns figure img{
   border-radius: 20px;
-  width:100%;
-}
+  height:100%;
+} */
 #columns figure figcaption{
   border-top:1px solid rgba(0,0,0,0.2);
   padding:10px;
