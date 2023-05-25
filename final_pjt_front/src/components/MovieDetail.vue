@@ -85,6 +85,7 @@
 import StillCard from "@/components/StillCard.vue";
 import ParentComment from "./ParentComment.vue";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 export default {
     name: "MovieDetail",
@@ -177,13 +178,24 @@ export default {
                     },
                 })
                 .then(() => {
-                    alert("삭제되었습니다.");
+                    Swal.fire({
+                        icon: 'success',
+                        title: '삭제되었습니다',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                     this.$router.push({
                         name: "home"
                     });
                 })
                 .catch(() => {
-                    alert("본인이 작성한 스틸컷만 삭제할 수 있습니다.");
+                    Swal.fire({
+
+                        icon: 'error',
+                        title: '본인이 작성한 스틸컷만 삭제할 수 있습니다.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 });
         },
         // ◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶
@@ -211,11 +223,21 @@ export default {
                     }
                 )
                 .then(() => {
-                    alert("콜렉션에 추가되었습니다.")
+                    Swal.fire({
+                    icon: 'success',
+                    title: '콜렉션에 추가되었습니다.',
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
                     this.dialog = false
                 })
                 .catch(() => {
-                    alert("콜렉션에 저장을 실패했습니다.")
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '콜렉션 저장을 실패했습니다.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 });
         },
         getUserCollections() {

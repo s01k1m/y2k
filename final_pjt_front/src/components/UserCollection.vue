@@ -71,6 +71,7 @@
 // import { BIconArrowRightSquare } from 'bootstrap-vue';
 import StillCard from './StillCard.vue';
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 export default {
   name: 'UserCollection',
@@ -107,8 +108,14 @@ export default {
             Authorization: "Token " + token,
           }
         })
-        .then((response) => {
-          alert(response.data.message)
+        .then(() => {
+          Swal.fire({
+            icon: 'warning',
+            title: 'this Collection is deleted',
+            text: 'The username or password you entered is incorrect.',
+            showConfirmButton: false,
+            timer: 1500
+          })
           this.$emit('child')
         })
         .catch((error) => {

@@ -29,6 +29,7 @@
 <script>
 import axios from "axios"
 import ChildComment from "./ChildComment.vue"
+import Swal from 'sweetalert2'
 
 export default {
   name: 'ParentComment',
@@ -79,7 +80,11 @@ export default {
     },
     commentSubmit() {
       if (!this.comment_content) {
-        alert('내용을 입력하세요.')
+        Swal.fire({
+        title: '내용을 입력하세요',
+        showConfirmButton: false,
+        timer: 1500
+      })
       } else {
         let token = localStorage.getItem("access_token")
         axios({
@@ -117,7 +122,12 @@ export default {
         this.$emit('child-comment-submit')
       })
       .catch(() => {
-        alert('본인이 작성한 댓글만 삭제할 수 있습니다.')
+        Swal.fire({
+          icon: 'error',
+          title: '본인이 작성한 댓글만 삭제할 수 있습니다.',
+          showConfirmButton: false,
+          timer: 1500
+        })
       })
     },
     // getCommentUserName(commentId) {

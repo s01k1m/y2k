@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import router from "../router";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 // const API_URL = 'http://127.0.0.1:8000'
 
@@ -69,7 +70,12 @@ export default new Vuex.Store({
         this.commit('SAVE_TOKEN', token)
       })  
       .catch(() => {
-        alert("로그인 실패 : 이메일과 비밀번호를 확인하세요.");
+        Swal.fire({
+          icon: 'error',
+          title: 'Login failed for User',
+          showConfirmButton: false,
+          timer: 1500
+        })
       })
     },
     
@@ -86,12 +92,23 @@ export default new Vuex.Store({
         .post("http://127.0.0.1:8000/accounts/signup/", loginObj)
         // loginObj = {email,password}
         .then(res => {
-          alert("회원가입이 성공적으로 이뤄졌습니다.");
+          Swal.fire({
+            icon: 'success',
+            title: 'You are signed in successfully',
+            showConfirmButton: false,
+            timer: 1500
+          })
           router.push({ name: "login" })
           console.log(res)
         })
         .catch(() => {
-          alert("회원가입 실패 : 이메일과 비밀번호를 확인하세요.");
+          Swal.fire({
+            icon: 'error',
+            title: 'Signed in failed',
+            text: 'The username or password you entered is incorrect.',
+            showConfirmButton: false,
+            timer: 1500
+          })
         })
     },
     
@@ -128,7 +145,13 @@ export default new Vuex.Store({
           commit("loginSuccess", userInfo)
         })
         .catch(() => {
-          alert("사용자 정보를 가져오는데 실패 : 이메일과 비밀번호를 확인하세요.");
+          Swal.fire({
+            icon: 'warning',
+            title: 'Login failed',
+            text: 'The username or password you entered is incorrect.',
+            showConfirmButton: false,
+            timer: 1500
+          })
         });
       }
       },

@@ -60,6 +60,7 @@
 <script>
 import axios from "axios";
 import FormData from "form-data";
+import Swal from 'sweetalert2'
 // import GetMovieData from '../components/GetMovieData.vue'
 
 export default {
@@ -100,13 +101,19 @@ export default {
     sendImages(e) {
       e.preventDefault() // 폼 새로 고침 방지
       if (!this.files) {
-        alert(
-          "스틸컷 이미지를 업로드 하세요. 업로드 전에는 제출할 수 없습니다."
-        );
+          Swal.fire({
+            icon: 'warning',
+            title: 'Please, upload your still image',
+            showConfirmButton: false,
+            timer: 1500
+          })
       } else if (!this.movie_id) {
-        alert(
-          "스틸컷의 영화 이름을 검색해서 선택하세요. 선택하기 전에는 제출할 수 없습니다."
-        );
+          Swal.fire({
+            icon: 'warning',
+            title: 'Please, choose the movie of it',
+            showConfirmButton: false,
+            timer: 1500
+          })
       } else {
         const form = new FormData();
         form.append("still_image", this.files)
@@ -122,7 +129,12 @@ export default {
           })
           .then((response) => {
             console.log('제출 성공!', response);
-            alert("정상적으로 제출되었습니다.");
+            Swal.fire({
+              icon: 'success',
+              title: 'Your work has been saved',
+              showConfirmButton: false,
+              timer: 1500
+            })
             this.$router.push({name: 'home'})
           })
           .catch(function (err) {
