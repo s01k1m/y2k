@@ -18,5 +18,7 @@ urlpatterns = [
     # detail page append still to collection
     path('append/<int:still_pk>/<int:collection_pk>/',
          views.add_still_to_collection, name='appendStill'),
+    # DELETE COLLECTION
+    path('user/<str:username>/collection/delete/<int:collection_pk>/', views.collection_view),
 
 ]

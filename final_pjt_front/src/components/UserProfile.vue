@@ -1,7 +1,11 @@
 <template>
   <div class="userprofile">
-    <h1>UserProfile</h1>
-    <h2>{{ userInfo.username }}</h2>
+    <p>
+      <span class="hi">Hi!</span>
+      <span class="name">
+           {{ userInfo.username }} 👋
+      </span>
+    </p>
   </div>
 </template>
 
@@ -16,6 +20,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.hi {
+  color: #757575;
+  font-size: 50px;
+  margin-right: 10px; 
+}
+.name {
+  color: #424242;
+  font-size: 50px;
 
+}
 </style>

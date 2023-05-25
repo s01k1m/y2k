@@ -1,9 +1,13 @@
 <template>
-  <div class="user">
-    <h1>MyPage</h1>
+  <div class="user" style="text-align:center;">
+    <br>
+    <!-- <h1>MyPage</h1> -->
+    <!-- <hr style="width:80%; margin : auto;"> -->
     <UserProfile></UserProfile>
     <UserCollection></UserCollection>
-    <button @click="logout">logout</button>
+    <div style="text-align: right; margin: auto; width:80%;">
+      <button sy @click="logout" id="logout">Bye.. {{ getUserName }} </button>
+    </div>
     <v-app>
       <v-container>
         <!-- mypage nav button -->
@@ -51,17 +55,6 @@
                           maxlength="20"
                         ></v-text-field>
                       </v-col>
-
-                      <!-- <v-col
-                      cols="12"
-                      sm="6"
-                    >
-                      <v-select
-                        :items="['0-17', '18-29', '30-54', '54+']"
-                        label="Age*"
-                        required
-                      ></v-select>
-                    </v-col> -->
                     </v-row>
                   </v-container>
                   <small>*indicates required field</small>
@@ -92,7 +85,7 @@
         <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% mypage content 내용 섹션 -->
         <v-row v-bind:class="{ visible: stillsActive }">
           <v-col class="mypage">
-            <div v-show="!stillsResult.length" class="noContents">There's no Stills!
+            <div v-show="!stillsResult" class="noContents">There's no Stills!
             <br>
             :'(
             </div>
@@ -103,10 +96,10 @@
             </div>
           </v-col>
         </v-row>
-        <v-row class="mypage" v-bind:class="{ visible: collectionsActive }"> {{ collectionsResult }}
+        <v-row class="mypage" v-bind:class="{ visible: collectionsActive }">
           <v-col>
-            <div v-for="(card, index) in collectionsResult" :key="index">
-            <UserCollection :card="card"></UserCollection>
+            <div v-for="(card, index) in collectionsResult" :key="index" >
+            <UserCollection  style="margin:10px;" :card="card" :renew="rew" @child="addRenew" ></UserCollection>
             </div>
           </v-col>
         </v-row>
@@ -135,32 +128,50 @@ export default {
       stillsResult: null,
       collectionsResult: null,
       dialog: false,
-      amount: "",
+      amount: '',
+      rew: 0,
     };
   },
+  computed: {
+    getUserName() {
+      console.log('computed', localStorage.getItem('username'))
+      return localStorage.getItem('username')
+    }
+  },
   created() {
-    this.$store.dispatch('getMemberInfo')
+    this.forStart()
+
   },
   mounted() {
-    this.getUserStills();
+    if (localStorage.getItem('username')) {
+      this.getUserStills();
+    }
   },
   methods: {
     logout() {
       return this.$store.dispatch("logout");
     },
-    showStills() {
-      this.stillsActive = false;
-      this.collectionsActive = true;
-    },
-    showCollections() {
-      this.stillsActive = true;
-      this.collectionsActive = false;
-    },
+    forStart() {
+      console.log('forStart 시작')
+      const username = this.getUserName
+      console.log('local username:' ,this.getUserName)
+      if (username) {
+        axios
+          .get(`http://127.0.0.1:8000/stills/user/${username}/stills`)
+          .then((response) => {
+            this.stillsResult = response.data;
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+    }
+  },
     getUserStills() {
       this.stillsActive = false;
       this.collectionsActive = true;
-      const username = this.$store.state.userInfo?.username;
-      console.log('username:' , username)
+      const username = this.getUserName
+      console.log('local username:' ,this.getUserName)
       if (username) {
         axios
           .get(`http://127.0.0.1:8000/stills/user/${username}/stills`)
@@ -177,7 +188,8 @@ export default {
       this.stillsActive = true;
       this.collectionsActive = false;
 
-      const username = this.$store.state.userInfo?.username;
+      const username = this.getUserName
+      console.log('local username:' ,this.getUserName)
       let token = localStorage.getItem('access_token')
       if (username) {
         axios
@@ -199,7 +211,7 @@ export default {
       console.log(this.amount)
       let collection_title = this.amount
       this.$store.dispatch('getMemberInfo')
-      const username = this.$store.state.userInfo?.username;
+      const username = localStorage.getItem('username')
       let data = {
         collection_name : collection_title
       }
@@ -215,11 +227,17 @@ export default {
             this.collectionsResult = response.data;
             console.log(response.data);
             this.getUserCollections()
+            
           })
           .catch((error) => {
             console.error(error);
           });
       }
+    },
+    addRenew() {
+      this.rew += 1
+      console.log(this.rew)
+      this.getUserCollections()
     }
   },
 };
@@ -227,15 +245,15 @@ export default {
 
 <style scoped>
 div.user {
-  background-color: rgb(173, 165, 255);
+  /* background-color: #e9e9e9; */
 }
 
 .mypage {
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
 }
 
 .mypage_nav {
-  background-color: rgb(195, 110, 216);
+  /* background-color: rgb(195, 110, 216); */
 }
 
 .visible {
@@ -245,4 +263,8 @@ div.user {
 .create_Collection {
   font-size: 20px;
 }
+#logout{
+  color: #8c8c8c;
+}
+
 </style>

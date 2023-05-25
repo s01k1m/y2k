@@ -146,7 +146,7 @@ MyPage에서 유저가 새로운 Collection을 생성하는 API:
 '''
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'DELETE'])
 def user_collections(request, username):
     if request.method == 'POST':
         print('&' * 30)
@@ -177,7 +177,14 @@ def user_collections(request, username):
         serializer = CollectionsStillSerializer(collections, many=True)
         return Response(serializer.data, status=201)
 
-
+@api_view(['DELETE'])
+def collection_view(request, username, collection_pk):
+    if request.method == 'DELETE':
+        # user가 가진 콜렉션 삭제하기
+        print(collection_pk, '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+        collection = Collection.objects.filter(id=collection_pk)
+        collection.delete()
+        return Response({'message': '콜렉션이 삭제되었습니다.'}, status=201)
 '''
 MyPage에서 유저가 Collection에 Stills 저장하는 API:
 1. still상세페이지에서 pk, collections 선택 후 넘김

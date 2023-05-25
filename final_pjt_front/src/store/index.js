@@ -16,9 +16,13 @@ export default new Vuex.Store({
   }, 
   mutations: {
     loginSuccess(state, payload) { //로그인 성공시,
+      console.log('loginSuccess')
       state.isLogin = true;
       state.isLoginError = false;
       state.userInfo = payload;
+      localStorage.setItem('username', state.userInfo.username)
+
+
       //payload 에 대한 정보는 위키피디아를 참고했다. 쉽게 말해 userInfo에 배정되는 실제 유저 정보를 할당한다고 보면 된다. 
     },
     loginError(state) { //로그인 실패시,
@@ -32,6 +36,7 @@ export default new Vuex.Store({
       state.userInfo = null;
       state.token = null;
       localStorage.removeItem('access_token')
+      localStorage.removeItem('username')
     },
 
     /////////// signup & login -> 완료하면 토큰 발급 ////////
@@ -114,6 +119,7 @@ export default new Vuex.Store({
         axios
         .get("http://127.0.0.1:8000/accounts/user/", config)
         .then(response => {
+          console.log('getMemberInfo then')
           let userInfo = {
             pk: response.data.pk,
             username: response.data.username,
@@ -126,5 +132,10 @@ export default new Vuex.Store({
         });
       }
       },
+  },
+  getters: {
+    getUserName (state) {
+      return state.userInfo.username
+    }
   }
 });

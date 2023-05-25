@@ -28,7 +28,7 @@ class CollectionSerializer(serializers.ModelSerializer):
         model = Collection
         fields = ('id', 'user', 'collection_name', 'stills')
 
-# 한개의 콜렉션읜 여러개의 스틸을 가질 수 있다.
+# 한개의 콜렉션은 여러개의 스틸을 가질 수 있다.
 
 
 class CollectionsStillSerializer(serializers.ModelSerializer):
