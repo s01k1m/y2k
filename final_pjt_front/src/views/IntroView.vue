@@ -8,11 +8,11 @@
         </div>
         <div class="intro-text">
           <div class="parent-nametag">
-            <div class="js-nametag">STEAL&nbsp;</div>
+            <div class="js-nametag">STEAL</div>
             <div class="js-nametag nametag2">&nbsp;STILL</div>
           </div>
           <div class="after-nametag">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOUR
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOUR
             SHOW
           </div>
         </div>
