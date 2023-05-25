@@ -76,7 +76,7 @@ export default {
   name: 'UserCollection',
   data(){
     return {
-      reveal : true,
+      reveal : false,
       collection: this.card,
     }
   },
