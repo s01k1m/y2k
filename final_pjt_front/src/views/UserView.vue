@@ -1,15 +1,13 @@
 <template>
   <div class="user" style="text-align:center;">
-    <br>
-    <!-- <h1>MyPage</h1> -->
-    <!-- <hr style="width:80%; margin : auto;"> -->
-    <UserProfile></UserProfile>
-    <UserCollection></UserCollection>
-    <div style="text-align: right; margin: auto; width:80%;">
-      <button sy @click="logout" id="logout">Bye.. {{ getUserName }} </button>
-    </div>
     <v-app>
       <v-container>
+    <br>
+    <UserProfile></UserProfile>
+    <UserCollection></UserCollection>
+    <div style="text-align: right; margin-right: 30px;">
+      <button sy @click="logout" id="logout">Bye.. {{ getUserName }} </button>
+    </div>
         <!-- mypage nav button -->
         <v-row>
           <v-col cols="2" class="mypage_nav">
