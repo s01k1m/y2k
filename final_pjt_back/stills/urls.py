@@ -18,5 +18,6 @@ urlpatterns = [
     # detail page append still to collection
     path('append/<int:collection_pk>/<int:still_pk>/',
          views.add_still_to_collection, name='appendStill'),
-
+    # stills -> 전체 콜렉션 보기
+    path('collections/', views.get_collection_list, name='get_collection_list')
 ]

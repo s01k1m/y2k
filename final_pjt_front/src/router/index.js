@@ -10,6 +10,7 @@ import SignUp from '../views/SignUpView.vue'
 import User from '../views/UserView.vue'
 import Collection from '../views/CollectionView.vue'
 import MovieDetail from '../components/MovieDetail.vue'
+import CollectionDetail from '../components/CollectionDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/stills',
     name: 'collection',
     component: Collection
+  },
+  {
+    path: '/stills/:collectionId',
+    name: 'collectionDetail',
+    component: CollectionDetail
   },
   {
     path: '/search/:searchInput',
