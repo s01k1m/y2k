@@ -238,3 +238,10 @@ def add_still_to_collection(request, still_pk, collection_pk):
     collection.stills.add(still)
 
     return Response({'message': 'Still added to the collection successfully.'})
+
+
+api_view(['GET'])
+def get_collection_list(request):
+    collections = Collection.objects.all()
+    serializer = CollectionsStillSerializer(collections, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
