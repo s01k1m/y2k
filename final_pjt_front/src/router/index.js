@@ -11,6 +11,7 @@ import User from '../views/UserView.vue'
 import Collection from '../views/CollectionView.vue'
 import MovieDetail from '../components/MovieDetail.vue'
 import CollectionDetail from '../components/CollectionDetail.vue'
+import PageNotFound from '../views/PageNotFoundView.vue'
 
 Vue.use(VueRouter)
 
@@ -67,6 +68,16 @@ const routes = [
     name: 'user',
     component: User
   },
+  {
+    path: '*',
+    redirect: "/404"
+    // 아래처럼 바로 NotFound 경로를 매칭해도 됨
+    // component: NotFound
+  },
+  {
+    path: '/404',
+    component: PageNotFound
+  }
 ]
 
 
