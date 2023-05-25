@@ -16,7 +16,7 @@ urlpatterns = [
     path('user/<str:username>/collections/',
          views.user_collections, name='collection'),
     # detail page append still to collection
-    path('append/<int:collection_pk>/<int:still_pk>/',
+    path('append/<int:still_pk>/<int:collection_pk>/',
          views.add_still_to_collection, name='appendStill'),
 
 ]

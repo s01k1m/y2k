@@ -100,7 +100,6 @@ export default {
     // 스틸컷을 최종 제출
     sendImages(e) {
       e.preventDefault() // 폼 새로 고침 방지
-      this.load()
       if (!this.files) {
         alert(
           "스틸컷 이미지를 업로드 하세요. 업로드 전에는 제출할 수 없습니다."

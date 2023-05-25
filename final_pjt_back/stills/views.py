@@ -67,6 +67,7 @@ def searchMovie(request, search_query):
     still_serializer = StillSerializer(stills, many=True)
     return Response(still_serializer.data)
 
+
 @api_view(['GET', 'DELETE'])
 def still_detail(request, stillId):
     still = Still.objects.get(id=stillId)
@@ -81,7 +82,7 @@ def still_detail(request, stillId):
             'movie': movie_serializer.data,
         }
         return JsonResponse(context)
-    
+
     if request.method == 'DELETE':
         print('요청 유저: ', request.user, '작성 유저: ', still.user)
         if request.user == still.user:
@@ -204,7 +205,7 @@ MyPage에서 유저가 Collection에 Stills 저장하는 API:
 #         serializer.is_valid(raise_exception=True)
 #         stills = serializer.save()
 #         # still_data.push(still)
-        
+
 #         # # 기존의 collection에 stills 추가
 #         collection.stills.set(stills)
 #         # # CollectionsStillSerializer를 사용하여 결과 시리얼라이즈
@@ -217,7 +218,7 @@ MyPage에서 유저가 Collection에 Stills 저장하는 API:
 #     return Response({'message': 'appending a still to collection is fail'}, status=201)
 
 @api_view(['POST'])
-def add_still_to_collection(request, collection_pk, still_pk):
+def add_still_to_collection(request, still_pk, collection_pk):
     # [1] collection_pk
     collection_pk = request.data.get('collection_pk')
     # [1] still_pk
