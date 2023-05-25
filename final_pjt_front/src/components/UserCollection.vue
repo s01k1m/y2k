@@ -9,7 +9,7 @@
         name="outside"
         
         >
-        <v-card id="theone" style="box-shadow: 0 8px 16px 0; ">
+        <v-card id="theone" style="box-shadow: 0 4px 6px 0 #adaaaa; ">
           <a @click="reveal = true">
           <v-img
             :src="'http://127.0.0.1:8000' + card.stills[0]?.still_image"
