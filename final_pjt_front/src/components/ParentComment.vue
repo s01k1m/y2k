@@ -1,11 +1,28 @@
 <template>
   <div>
-    <div v-for="(comment, index) in comment_list" :key="index">
-      {{ comment.username }}: {{ comment.content }}
-      <button @click="deleteComment(comment.id)">삭제</button>
-      <ChildComment :comment_id="comment.id" :still_id="still_id" :child_comment_list="parseChildC(comment.id)" :key="componentKey" @child-comment-submit="emitToParent"></ChildComment>
+    <p id="title">Comments</p>
+    <div id="container">
+      <div v-for="(comment, index) in comment_list" :key="index">
+        <div id="commentcontainer">
+          <div id="commentbody">
+            <span id="userid">
+              {{ comment.username }} 
+            </span>
+            <span id="content">
+              {{ comment.content }}
+            </span>
+          </div>
+          <div>
+            <button id="deletebutton" @click="deleteComment(comment.id)">X</button>
+          </div>
+        </div>
+        <ChildComment :comment_id="comment.id" :still_id="still_id" :child_comment_list="parseChildC(comment.id)" :key="componentKey" @child-comment-submit="emitToParent"></ChildComment>
+        <hr>
+      </div>
     </div>
-    댓: <input type="text" @keyup.enter="commentSubmit()" v-model="comment_content">
+    <div id="commentfooter">
+      <input id="commenttext" type="text" @keyup.enter="commentSubmit()" v-model="comment_content">
+    </div>
   </div>
 </template>
 
@@ -117,6 +134,72 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+#title {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 15px 10px 5px 10px;
+  text-align: left;
+}
+#container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: space-between;
+  margin: 15px;
+  padding-right: 10px;
+  height: 350px;
+  overflow: auto;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 20px;
+  /* display: none; */
+}
+::-webkit-scrollbar-thumb {
+  background: #e9e9e9; /* 스크롤바 막대 색상 */
+  border-radius: 12px 12px 12px 12px;
+}
+#userid {
+  font-weight: 600;
+  text-align: left;
+  font-size: 18px;
+  margin-right: 5px;
+}
+#content {
+  text-align: left;
+  font-weight: 400;
+  font-size: 16px;
+}
+#commentcontainer {
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#commentbody {
+  justify-content: space-between;
+  flex-direction: row;
+}
+#commentfooter {
+  height: 48px;
+  border: none;
+  border-radius: 24px;
+  padding: 1px 2px;
+  background-color: #e9e9e9;
+  text-align: left;
+  margin: 10px 15px 10px 10px;
+}
+#commenttext {
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px;
+  outline: none;
+}
+#deletebutton {
+  margin-left: 10px;
+  border: solid 1px #e9e9e9;
+  border-radius: 8px;
+  padding: 1px 6px;
+}
 </style>

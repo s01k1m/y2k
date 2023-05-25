@@ -1,14 +1,13 @@
 <template>
 <v-app>
     <v-container id="container">
+
         <v-row class="card">
             <v-col cols='12'>
                 <img :src="'http://127.0.0.1:8000' + still_detail?.still.still_image" :alt="still_detail?.still.still_image" />
                 <button id="exit" @click="back">X</button>
             </v-col>
             <v-row>
-
-
             <v-col cols='6' id='movie-detail'>
                 <div id="released_date">
                     {{ still_detail?.movie[0].movie_released_date }} released
@@ -65,7 +64,7 @@
                             </v-card-actions>
                         </v-card>
                     </v-dialog>
-                    <!-- 콜렉션을 추가하는 버튼 -->
+                    <!-- 게시글 삭제 -->
                     <v-btn small @click="deleteStill">DELETE</v-btn>
                 </v-col>
             </v-col>
@@ -253,6 +252,7 @@ export default {
 
 <style scoped>
 #exit {
+
     position: absolute;
     font-size: 20px;
     top: 1%;
@@ -262,6 +262,18 @@ export default {
     padding: 1px 8px;
     border-radius: 10px;
 }
+/* =======
+  position: absolute;
+  font-size: 20px;
+  top: 1%;
+  right: 1%;
+  background-color: white;
+  opacity: 0.8;
+  padding: 1px 8px;
+  border-radius: 10px;
+}
+*/
+
 
 #container {
     /* max-width: 1280px;
@@ -295,6 +307,7 @@ img {
 }
 #comments {
   width: 50%;
+
 } */
 
 #titlebox {
@@ -334,7 +347,7 @@ img {
   text-align: center;
   font-size: 28px;
   font-weight: 600;
-  margin: 10px 15px;
+  
 }
 
 #stillDetailFooter {
@@ -350,7 +363,7 @@ img {
 #columns figure {
   display: inline-block;
   border:1px solid rgba(0,0,0,0.2);
- margin: 0;
+  margin: 0;
   margin-bottom: 15px;
   border-radius: 20px;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.5);;
