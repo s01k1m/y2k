@@ -93,7 +93,6 @@ export default {
   // emits: ['child'],
   methods: {
     deleteCollection () {
-      console.log('######################',this.collection.id)
       let collection_id = Number(this.collection.id)
       const username = localStorage.getItem('username')
       let token = localStorage.getItem('access_token')
@@ -109,15 +108,12 @@ export default {
           }
         })
         .then((response) => {
-          alert(response.data.message);
+          alert(response.data.message)
           this.$emit('child')
         })
         .catch((error) => {
           console.log(error);
         });
-    },
-    gogo() {
-      
     }
   }
 }

@@ -189,16 +189,16 @@ export default {
         // ◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶◀▶
 
         AddToCollection() {
-            console.log(typeof this.pickedCollection);
+            console.log(typeof this.pickedCollection)
             // [1] 선택된 콜렉션 값을 가져오고 - 를 기준으로 스플릿해서 인덱스 값을 뽑는다.
-            let words = this.pickedCollection.split("-");
-            let pk = Number(words[0].trim());
+            let words = this.pickedCollection.split("-")
+            let pk = Number(words[0].trim())
             // myData의 인덱스 pk인 오브젝트에 사용자가 선택한 콜렉션에 대한 id 정보가 저장되어있다.
-            let target = this.myData[pk - 1];
+            let target = this.myData[pk - 1]
 
-            const stillId = Number(this.$route.params.stillId);
-            let token = localStorage.getItem("access_token");
-            console.log(typeof stillId, typeof target.id);
+            const stillId = Number(this.$route.params.stillId)
+            let token = localStorage.getItem("access_token")
+            console.log(typeof stillId, typeof target.id)
             axios
                 .post(
                     `http://127.0.0.1:8000/stills/append/${stillId}/${target.id}/`, {
@@ -211,10 +211,11 @@ export default {
                     }
                 )
                 .then(() => {
-                    alert("콜렉션에 추가되었습니다.");
+                    alert("콜렉션에 추가되었습니다.")
+                    this.dialog = false
                 })
                 .catch(() => {
-                    alert("콜렉션에 저장을 실패했습니다.");
+                    alert("콜렉션에 저장을 실패했습니다.")
                 });
         },
         getUserCollections() {

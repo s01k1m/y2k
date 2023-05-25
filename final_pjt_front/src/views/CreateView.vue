@@ -36,7 +36,7 @@
               class="radio-button"
             />
             <label :for="movie.id" class="radio-label"
-              >{{ movie.movie_title }} : {{ movie.id }}</label
+              >{{ movie.movie_title }} ( {{ movie.movie_released_date }} )</label
             >
           </div>
         </div>
