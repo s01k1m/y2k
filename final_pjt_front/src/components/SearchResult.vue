@@ -5,7 +5,7 @@
     <br>
     :'(
     </div>
-    <div id="columns">
+    <div v-show="ResultList.length" id="columns">
       <figure v-for="(still, index) in ResultList" :key="index">
         <StillCard :still="still" :index="index"></StillCard>
       </figure>

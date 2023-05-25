@@ -5,7 +5,6 @@
       Pick your STILL Image file.<br />
       Then, search and pick a movie for it.<br />And submit!
     </p>
-getMoviesmo
     <form>
       <v-file-input
         v-model="files"
