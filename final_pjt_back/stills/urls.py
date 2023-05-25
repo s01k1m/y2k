@@ -21,5 +21,6 @@ urlpatterns = [
     # DELETE COLLECTION
     path('user/<str:username>/collection/delete/<int:collection_pk>/', views.collection_delete),
     # stills -> 전체 콜렉션 보기
-    path('collections/', views.get_collection_list, name='get_collection_list')
+    path('collections/all/', views.get_collection_list, name='get_collection_list'),
+    path('collections/<int:collectionId>/', views.get_collection_detail, name='get_collection_detail'),
 ]
