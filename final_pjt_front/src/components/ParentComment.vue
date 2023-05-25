@@ -145,7 +145,6 @@ export default {
   display: flex;
   flex-direction: column;
   text-align: left;
-  justify-content: space-between;
   margin: 15px;
   padding-right: 10px;
   height: 350px;
@@ -160,6 +159,7 @@ export default {
   background: #e9e9e9; /* 스크롤바 막대 색상 */
   border-radius: 12px 12px 12px 12px;
 }
+
 #userid {
   font-weight: 600;
   text-align: left;

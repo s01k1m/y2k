@@ -233,8 +233,16 @@ def add_still_to_collection(request, still_pk, collection_pk):
     return Response({'message': 'Still added to the collection successfully.'})
 
 
-api_view(['GET'])
+@api_view(['GET'])
 def get_collection_list(request):
+    print('get_collection_list 진입!')
     collections = Collection.objects.all()
     serializer = CollectionsStillSerializer(collections, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_collection_detail(request, collectionId):
+    print('get_collection_detail_or_delete 진입!')
+    collection = Collection.objects.get(id=collectionId)
+    serializer = CollectionsStillSerializer(collection)
     return Response(serializer.data, status=status.HTTP_200_OK)
